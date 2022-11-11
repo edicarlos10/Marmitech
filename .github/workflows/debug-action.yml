@@ -1,0 +1,31 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  testDebug:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone Repo
+      - uses: actions/checkout@v3
+
+      - name: Touch local properties
+        run: touch local.properties
+
+      - name: Add Api Key
+        run: echo "apiid=\"\"" >> local.properties
+
+      - name: Check Unit Test
+        run: ./gradlew :app:testDebugUnitTest :network:testDebugUnitTest :domain:testDebugUnitTest
