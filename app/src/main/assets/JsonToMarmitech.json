@@ -1,0 +1,33 @@
+{
+   "Fiscal": [
+      {
+        "senha":"213",
+        "turma":1,
+        "nome":"Edi Carlos",
+        "matricula":1
+      },	  
+      {
+        "senha":"213",
+        "turma":2,
+        "nome":"João Francisco da Silva",
+        "matricula":2
+      },
+      {
+        "senha":"213",
+        "turma":3,
+        "nome":"Malaquias Gonçalvez",
+        "matricula":3
+      }
+   ],
+   "Turma":[
+	  {
+        "codigo":1
+	  },
+	  {
+        "codigo":2
+	  },
+	  {
+        "codigo":3
+	  }
+   ]
+}
