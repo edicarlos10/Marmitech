@@ -1,6 +1,7 @@
 package com.example.network.weather.marmitech.appPeople.local
 
 import com.example.domain.marmitech.appPeople.Fiscal
+import com.example.domain.marmitech.appPeople.FiscalSaved
 import com.example.domain.marmitech.appPeople.Turma
 import com.example.domain.marmitech.base.Error
 import com.example.domain.marmitech.base.ThrowableBase
@@ -25,6 +26,14 @@ class LoginLocalData(
                 it.onSuccess(turmaList.map { turma ->
                     turma.toTurma()
                 })
+            } ?: it.onError(ThrowableBase(Error.GENERIC_ERROR))
+        }
+    }
+
+    override fun getFiscalSaved(matricula: Long?, turma: Long?): Single<FiscalSaved> {
+        return Single.create {
+            appDatabase.fiscalSavedDao().getFiscalSaved(matricula ?: 0, turma ?: 0)?.let { fiscalSaved ->
+                it.onSuccess(fiscalSaved.toFiscalSaved())
             } ?: it.onError(ThrowableBase(Error.GENERIC_ERROR))
         }
     }
