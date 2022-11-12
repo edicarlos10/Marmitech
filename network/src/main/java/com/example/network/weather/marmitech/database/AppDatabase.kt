@@ -2,10 +2,7 @@ package com.example.network.weather.marmitech.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.network.weather.marmitech.appPeople.local.database.FiscalDao
-import com.example.network.weather.marmitech.appPeople.local.database.FiscalEntity
-import com.example.network.weather.marmitech.appPeople.local.database.TurmaDao
-import com.example.network.weather.marmitech.appPeople.local.database.TurmaEntity
+import com.example.network.weather.marmitech.appPeople.local.database.*
 
 @Database(
     entities = [FiscalEntity::class, TurmaEntity::class],
@@ -14,4 +11,5 @@ import com.example.network.weather.marmitech.appPeople.local.database.TurmaEntit
 abstract class AppDatabase : RoomDatabase() {
     abstract fun fiscalDao(): FiscalDao
     abstract fun turmaDao(): TurmaDao
+    abstract fun fiscalSavedDao(): FiscalSavedDao
 }
