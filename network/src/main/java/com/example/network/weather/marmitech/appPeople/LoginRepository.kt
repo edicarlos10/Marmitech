@@ -14,4 +14,7 @@ class LoginRepository(
 
     override fun getAllTurmas() = localData.getAllTurmas()
         .onErrorResumeNext { ThrowableBase.parseError(it).toSingleError() }
+
+    override fun getFiscalSaved(matricula: Long, turma: Long) = localData.getFiscalSaved(matricula, turma)
+        .onErrorResumeNext { ThrowableBase.parseError(it).toSingleError() }
 }
