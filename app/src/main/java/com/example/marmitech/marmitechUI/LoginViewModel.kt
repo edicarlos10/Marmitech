@@ -36,9 +36,9 @@ class LoginViewModel (
     val fiscalSaved: LiveData<FiscalSaved?>
         get() = _fiscalSaved
 
-    private val _allTurma = MutableLiveData<List<Turma>?>()
-    val allTurma: LiveData<List<Turma>?>
-        get() = _allTurma
+    private val _allTurmas = MutableLiveData<List<Turma>?>()
+    val allTurmas: LiveData<List<Turma>?>
+        get() = _allTurmas
 
     fun getFiscal(matricula: Long, turma: Long) {
         getFiscalUseCase.execute(matricula, turma)
@@ -84,7 +84,7 @@ class LoginViewModel (
                 _loading.value = it.isLoading()
                 when (it) {
                     is Event.Data<List<Turma>> -> {
-                        _allTurma.value = it.data
+                        _allTurmas.value = it.data
                     }
                     is Event.Error -> {
                         _error.value = it
