@@ -90,4 +90,5 @@ dependencies {
 
     def koin_version = '3.2.0-beta-1'
     implementation "io.insert-koin:koin-android:$koin_version"
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.12.3'
 }
