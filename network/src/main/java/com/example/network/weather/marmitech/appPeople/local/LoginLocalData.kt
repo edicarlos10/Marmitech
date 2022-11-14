@@ -5,7 +5,10 @@ import com.example.domain.marmitech.appPeople.FiscalSaved
 import com.example.domain.marmitech.appPeople.Turma
 import com.example.domain.marmitech.base.Error
 import com.example.domain.marmitech.base.ThrowableBase
+import com.example.network.weather.marmitech.appPeople.local.database.FiscalSavedEntity
+import com.example.network.weather.marmitech.appPeople.local.database.TurmaEntity
 import com.example.network.weather.marmitech.database.AppDatabase
+import io.reactivex.Completable
 import io.reactivex.Single
 
 class LoginLocalData(
@@ -35,6 +38,20 @@ class LoginLocalData(
             appDatabase.fiscalSavedDao().getFiscalSaved(matricula ?: 0, turma ?: 0)?.let { fiscalSaved ->
                 it.onSuccess(fiscalSaved.toFiscalSaved())
             } ?: it.onError(ThrowableBase(Error.GENERIC_ERROR))
+        }
+    }
+
+    override fun insertTurma(turma: Turma): Completable {
+        return Completable.create {
+            appDatabase.turmaDao().insert(TurmaEntity.fromTurma(turma))
+                it.onComplete()
+        }
+    }
+
+    override fun insertFiscalSaved(fiscaSaved: FiscalSaved): Completable {
+        return Completable.create {
+            appDatabase.fiscalSavedDao().insert(FiscalSavedEntity.fromFiscalSaved(fiscaSaved))
+            it.onComplete()
         }
     }
 }

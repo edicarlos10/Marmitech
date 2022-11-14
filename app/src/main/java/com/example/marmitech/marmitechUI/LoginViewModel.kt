@@ -5,18 +5,18 @@ import androidx.lifecycle.MutableLiveData
 import com.example.domain.marmitech.appPeople.Fiscal
 import com.example.domain.marmitech.appPeople.FiscalSaved
 import com.example.domain.marmitech.appPeople.Turma
-import com.example.domain.marmitech.appPeople.usecase.GetFiscalSavedUseCase
-import com.example.domain.marmitech.appPeople.usecase.GetFiscalUseCase
-import com.example.domain.marmitech.appPeople.usecase.GetTurmaUseCase
+import com.example.domain.marmitech.appPeople.usecase.*
 import com.example.domain.marmitech.base.Event
 import com.example.domain.marmitech.util.ISchedulerProvider
 import com.example.marmitech.base.BaseViewModel
 import io.reactivex.rxkotlin.addTo
 
-class LoginViewModel (
+class LoginViewModel(
     scheduler: ISchedulerProvider,
     private val getFiscalUseCase: GetFiscalUseCase,
     private val getFiscalSavedUseCase: GetFiscalSavedUseCase,
+    private val insertTurmaUseCase: InsertTurmaUseCase,
+    private val insertFiscalSavedUseCase: InsertFiscalSavedUseCase,
     private val getTurmaUseCase: GetTurmaUseCase
 ) : BaseViewModel(scheduler) {
 
@@ -39,6 +39,14 @@ class LoginViewModel (
     private val _allTurmas = MutableLiveData<List<Turma>?>()
     val allTurmas: LiveData<List<Turma>?>
         get() = _allTurmas
+
+    private val _insertTurma = MutableLiveData<Boolean>()
+    val insertTurma: LiveData<Boolean>
+        get() = _insertTurma
+
+    private val _insertFiscalSaved = MutableLiveData<Boolean>()
+    val insertFiscalSaved: LiveData<Boolean>
+        get() = _insertFiscalSaved
 
     fun getFiscal(matricula: Long, turma: Long) {
         getFiscalUseCase.execute(matricula, turma)
@@ -88,6 +96,38 @@ class LoginViewModel (
                     }
                     is Event.Error -> {
                         _error.value = it
+                    }
+                    else -> Unit
+                }
+            }.addTo(disposables)
+    }
+
+    fun insertTurma(turma: Turma) {
+        insertTurmaUseCase.execute(turma).subscribeOn(scheduler.backgroundThread())
+            .observeOn(scheduler.mainThread())
+            .subscribe { event ->
+                when (event) {
+                    is Event.Data<Boolean> -> {
+                        _insertTurma.value = true
+                    }
+                    is Event.Error -> {
+                        _error.value = event
+                    }
+                    else -> Unit
+                }
+            }.addTo(disposables)
+    }
+
+    fun insertFiscalSaved(fiscalSaved: FiscalSaved) {
+        insertFiscalSavedUseCase.execute(fiscalSaved).subscribeOn(scheduler.backgroundThread())
+            .observeOn(scheduler.mainThread())
+            .subscribe { event ->
+                when (event) {
+                    is Event.Data<Boolean> -> {
+                        _insertFiscalSaved.value = true
+                    }
+                    is Event.Error -> {
+                        _error.value = event
                     }
                     else -> Unit
                 }

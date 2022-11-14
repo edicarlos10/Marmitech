@@ -1,9 +1,7 @@
 package com.example.marmitech.marmitechUI
 
 import com.example.domain.marmitech.appPeople.ILoginRepository
-import com.example.domain.marmitech.appPeople.usecase.GetFiscalSavedUseCase
-import com.example.domain.marmitech.appPeople.usecase.GetFiscalUseCase
-import com.example.domain.marmitech.appPeople.usecase.GetTurmaUseCase
+import com.example.domain.marmitech.appPeople.usecase.*
 import com.example.network.weather.marmitech.appPeople.LoginRepository
 import com.example.network.weather.marmitech.appPeople.local.ILoginLocalData
 import com.example.network.weather.marmitech.appPeople.local.LoginLocalData
@@ -15,4 +13,6 @@ val loginModule = module {
     factory { GetFiscalUseCase(repository = get()) }
     factory { GetTurmaUseCase(repository = get()) }
     factory { GetFiscalSavedUseCase(repository = get()) }
+    factory { InsertTurmaUseCase(repository = get()) }
+    factory { InsertFiscalSavedUseCase(repository = get()) }
 }
