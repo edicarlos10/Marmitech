@@ -8,8 +8,7 @@ import java.io.Serializable
 
 @Entity(tableName = "fiscal")
 data class FiscalEntity(
-    @PrimaryKey
-    var matricula: Long,
+    @ColumnInfo(name = "matricula") var matricula: Long,
     @ColumnInfo(name = "senha") var senha: String? = null,
     @ColumnInfo(name = "nome") var nome: String? = null,
     @ColumnInfo(name = "turma") var turma: Int? = null,
