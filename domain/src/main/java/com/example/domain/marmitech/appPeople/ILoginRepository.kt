@@ -1,5 +1,8 @@
 package com.example.domain.marmitech.appPeople
 
+import com.example.domain.marmitech.appPeople.model.Fiscal
+import com.example.domain.marmitech.appPeople.model.FiscalSaved
+import com.example.domain.marmitech.appPeople.model.Turma
 import io.reactivex.Completable
 import io.reactivex.Single
 

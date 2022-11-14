@@ -1,7 +1,6 @@
 package com.example.domain.marmitech.appPeople.usecase
 
-import com.example.domain.marmitech.appPeople.Fiscal
-import com.example.domain.marmitech.appPeople.FiscalSaved
+import com.example.domain.marmitech.appPeople.model.FiscalSaved
 import com.example.domain.marmitech.appPeople.ILoginRepository
 import com.example.domain.marmitech.base.Event
 import com.example.domain.marmitech.base.ThrowableBase

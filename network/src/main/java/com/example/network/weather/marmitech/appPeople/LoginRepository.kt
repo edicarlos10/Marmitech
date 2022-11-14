@@ -1,9 +1,9 @@
 package com.example.network.weather.marmitech.appPeople
 
-import com.example.domain.marmitech.appPeople.Fiscal
-import com.example.domain.marmitech.appPeople.FiscalSaved
+import com.example.domain.marmitech.appPeople.model.Fiscal
+import com.example.domain.marmitech.appPeople.model.FiscalSaved
 import com.example.domain.marmitech.appPeople.ILoginRepository
-import com.example.domain.marmitech.appPeople.Turma
+import com.example.domain.marmitech.appPeople.model.Turma
 import com.example.domain.marmitech.base.ThrowableBase
 import com.example.network.weather.marmitech.appPeople.local.ILoginLocalData
 import com.example.network.weather.marmitech.database.AppDatabase
@@ -30,8 +30,8 @@ class LoginRepository(
             }
     }
 
-    override fun insertFiscalSaved(fiscalSaved: FiscalSaved): Completable {
-        return localData.insertFiscalSaved(fiscalSaved)
+    override fun insertFiscalSaved(fiscal: FiscalSaved): Completable {
+        return localData.insertFiscalSaved(fiscal)
             .onErrorResumeNext {
                 ThrowableBase.parseError(it).toCompletableError()
             }

@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.domain.marmitech.appPeople.Fiscal
-import com.example.domain.marmitech.appPeople.Turma
+import com.example.domain.marmitech.appPeople.model.Fiscal
+import com.example.domain.marmitech.appPeople.model.Turma
 import com.example.domain.marmitech.base.Event
 import com.example.marmitech.databinding.FragmentLoginBinding
+import com.example.marmitech.extension.toDataList
 import com.example.marmitech.marmitechUI.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -73,6 +74,9 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        val fiscal = context?.toDataList()?.dataList?.fiscal
     }
 
     private fun sucessGetFiscal(fiscal: Fiscal?) {

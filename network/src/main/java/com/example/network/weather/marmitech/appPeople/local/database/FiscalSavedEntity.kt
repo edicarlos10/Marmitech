@@ -2,7 +2,7 @@ package com.example.network.weather.marmitech.appPeople.local.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import com.example.domain.marmitech.appPeople.FiscalSaved
+import com.example.domain.marmitech.appPeople.model.FiscalSaved
 import java.io.Serializable
 
 @Entity(tableName = "fiscal_saved")
