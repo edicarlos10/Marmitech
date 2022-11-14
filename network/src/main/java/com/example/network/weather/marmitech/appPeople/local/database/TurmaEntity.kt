@@ -15,4 +15,12 @@ data class TurmaEntity(
             codigo = codigo
         )
     }
+
+    companion object {
+        fun fromTurma(turma: Turma): TurmaEntity {
+            return TurmaEntity(
+                turma.codigo
+            )
+        }
+    }
 }

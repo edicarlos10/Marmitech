@@ -6,4 +6,7 @@ import androidx.room.*
 interface TurmaDao {
     @Query("SELECT * FROM turma ORDER BY codigo DESC")
     fun getAllTurma(): List<TurmaEntity>?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(vararg turma: TurmaEntity)
 }
