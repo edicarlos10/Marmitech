@@ -15,4 +15,5 @@ val loginModule = module {
     factory { GetFiscalSavedUseCase(repository = get()) }
     factory { InsertTurmaUseCase(repository = get()) }
     factory { InsertFiscalSavedUseCase(repository = get()) }
+    factory { InsertFiscalUseCase(repository = get()) }
 }
