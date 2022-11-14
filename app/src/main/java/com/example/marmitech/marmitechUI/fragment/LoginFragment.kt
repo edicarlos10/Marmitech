@@ -29,10 +29,37 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstance: Bundle?) {
         super.onCreate(savedInstance)
 
+        loginViewModel.insertTurma.observe(this){onInsertTurma(it)}
+        loginViewModel.insertFiscalSaved.observe(this){onInsertFiscalSaved(it)}
+        loginViewModel.insertFiscal.observe(this){onInsertFiscal(it)}
         loginViewModel.fiscal.observe(this) { fiscal -> sucessGetFiscal(fiscal) }
         loginViewModel.allTurmas.observe(this) { allTurmas -> sucessGetAllTurma(allTurmas) }
         loginViewModel.loading.observe(this) { onLoading(it) }
         loginViewModel.error.observe(this) { onError(it) }
+    }
+
+    private fun onInsertTurma(data: Boolean?) {
+        data?.let {
+            if (!it){
+                //Não foi possivel atualizar turma
+            }
+        }
+    }
+
+    private fun onInsertFiscal(data: Boolean?) {
+        data?.let {
+            if (!it){
+                //Não foi possivel atualizar os fiscais
+            }
+        }
+    }
+
+    private fun onInsertFiscalSaved(data: Boolean?) {
+        data?.let {
+            if (it){
+                // fiscal logado salvo na tabela
+            }
+        }
     }
 
     override fun onCreateView(
