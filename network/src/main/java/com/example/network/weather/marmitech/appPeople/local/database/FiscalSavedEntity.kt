@@ -13,9 +13,19 @@ data class FiscalSavedEntity(
 ) : Serializable {
     fun toFiscalSaved(): FiscalSaved {
         return FiscalSaved(
-           matricula = matricula,
-           nome = nome,
-           turma = turma,
+            matricula = matricula,
+            nome = nome,
+            turma = turma,
         )
+    }
+
+    companion object {
+        fun fromFiscalSaved(fiscalSaved: FiscalSaved): FiscalSavedEntity {
+            return FiscalSavedEntity(
+                fiscalSaved.matricula,
+                fiscalSaved.nome,
+                fiscalSaved.turma
+            )
+        }
     }
 }
