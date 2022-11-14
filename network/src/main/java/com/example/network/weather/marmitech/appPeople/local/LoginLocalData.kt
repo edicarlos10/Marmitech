@@ -5,6 +5,7 @@ import com.example.domain.marmitech.appPeople.FiscalSaved
 import com.example.domain.marmitech.appPeople.Turma
 import com.example.domain.marmitech.base.Error
 import com.example.domain.marmitech.base.ThrowableBase
+import com.example.network.weather.marmitech.appPeople.local.database.FiscalEntity
 import com.example.network.weather.marmitech.appPeople.local.database.FiscalSavedEntity
 import com.example.network.weather.marmitech.appPeople.local.database.TurmaEntity
 import com.example.network.weather.marmitech.database.AppDatabase
@@ -51,6 +52,13 @@ class LoginLocalData(
     override fun insertFiscalSaved(fiscaSaved: FiscalSaved): Completable {
         return Completable.create {
             appDatabase.fiscalSavedDao().insert(FiscalSavedEntity.fromFiscalSaved(fiscaSaved))
+            it.onComplete()
+        }
+    }
+
+    override fun insertFiscal(fiscal: Fiscal): Completable {
+        return Completable.create {
+            appDatabase.fiscalDao().insert(FiscalEntity.fromFiscal(fiscal))
             it.onComplete()
         }
     }
