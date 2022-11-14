@@ -1,5 +1,6 @@
 package com.example.network.weather.marmitech.appPeople
 
+import com.example.domain.marmitech.appPeople.Fiscal
 import com.example.domain.marmitech.appPeople.FiscalSaved
 import com.example.domain.marmitech.appPeople.ILoginRepository
 import com.example.domain.marmitech.appPeople.Turma
@@ -31,6 +32,13 @@ class LoginRepository(
 
     override fun insertFiscalSaved(fiscalSaved: FiscalSaved): Completable {
         return localData.insertFiscalSaved(fiscalSaved)
+            .onErrorResumeNext {
+                ThrowableBase.parseError(it).toCompletableError()
+            }
+    }
+
+    override fun insertFiscal(fiscal: Fiscal): Completable {
+        return localData.insertFiscal(fiscal)
             .onErrorResumeNext {
                 ThrowableBase.parseError(it).toCompletableError()
             }

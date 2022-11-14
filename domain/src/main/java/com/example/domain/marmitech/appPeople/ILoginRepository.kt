@@ -9,4 +9,5 @@ interface ILoginRepository {
     fun getFiscalSaved(matricula: Long, turma: Long): Single<FiscalSaved>
     fun insertTurma(turma: Turma): Completable
     fun insertFiscalSaved(fiscal: FiscalSaved): Completable
+    fun insertFiscal(fiscal: Fiscal): Completable
 }
