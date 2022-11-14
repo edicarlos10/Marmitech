@@ -16,4 +16,4 @@ private fun createAppDatabase(context: Context) = Room.databaseBuilder(
     context,
     AppDatabase::class.java,
     APP_DATABASE_MARMITECH
-)
+).fallbackToDestructiveMigration().build()

@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.example.network.weather.marmitech.appPeople.local.database.*
 
 @Database(
-    entities = [FiscalEntity::class, TurmaEntity::class],
+    entities = [FiscalEntity::class, TurmaEntity::class, FiscalSavedEntity::class],
     version = 1,
     exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
