@@ -1,5 +1,6 @@
 package com.example.marmitech.marmitechUI.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,6 +15,7 @@ import com.example.domain.marmitech.appPeople.model.FiscalSaved
 import com.example.domain.marmitech.appPeople.model.Turma
 import com.example.domain.marmitech.base.Event
 import com.example.marmitech.R
+import com.example.marmitech.apontamento.activity.ApontamentoActivity
 import com.example.marmitech.databinding.FragmentLoginBinding
 import com.example.marmitech.extension.showDialog
 import com.example.marmitech.extension.showToast
@@ -161,12 +163,7 @@ class LoginFragment : Fragment() {
 
     private fun sucessGetFiscal(fiscal: List<Fiscal>?) {
         fiscal?.takeIf { it.isNotEmpty() }?.get(0)?.let {
-            lateinit var fiscalSaved: FiscalSaved
-            fiscalSaved.matricula = it.matricula
-            fiscalSaved.nome = it.nome
-            fiscalSaved.turma = it.turma
-
-            loginViewModel.insertFiscalSaved(fiscalSaved)
+            loginViewModel.insertFiscalSaved(FiscalSaved(it.matricula, it.nome, it.turma))
         } ?: kotlin.run {
             context?.showDialog("Matricula ou senha errada, tente novamente.")
         }
@@ -194,6 +191,9 @@ class LoginFragment : Fragment() {
         data?.let {
             if (it) {
                 // fiscal logado salvo na tabela
+
+                val intent = Intent(context, ApontamentoActivity::class.java)
+                startActivity(intent)
             }
         }
     }
