@@ -60,7 +60,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/mailEditText"
+                android:id="@+id/matriculaEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Matricula"
