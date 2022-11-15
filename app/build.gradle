@@ -71,6 +71,7 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.4.2'
     annotationProcessor 'androidx.room:room-compiler:2.4.2'
     implementation 'androidx.room:room-ktx:2.4.2'
+    kapt "androidx.room:room-compiler:2.4.2"
     implementation 'com.airbnb.android:lottie:5.0.3'
 
     implementation 'com.squareup.okhttp3:mockwebserver:5.0.0-alpha.6'
