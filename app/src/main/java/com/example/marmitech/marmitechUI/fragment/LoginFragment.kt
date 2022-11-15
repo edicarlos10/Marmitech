@@ -9,6 +9,7 @@ import com.example.domain.marmitech.appPeople.model.Fiscal
 import com.example.domain.marmitech.appPeople.model.Turma
 import com.example.domain.marmitech.base.Event
 import com.example.marmitech.databinding.FragmentLoginBinding
+import com.example.marmitech.extension.showDialog
 import com.example.marmitech.extension.toDataList
 import com.example.marmitech.marmitechUI.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,9 +31,9 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstance: Bundle?) {
         super.onCreate(savedInstance)
 
-        loginViewModel.insertTurma.observe(this){onInsertTurma(it)}
-        loginViewModel.insertFiscalSaved.observe(this){onInsertFiscalSaved(it)}
-        loginViewModel.insertFiscal.observe(this){onInsertFiscal(it)}
+        loginViewModel.insertTurma.observe(this) { onInsertTurma(it) }
+        loginViewModel.insertFiscalSaved.observe(this) { onInsertFiscalSaved(it) }
+        loginViewModel.insertFiscal.observe(this) { onInsertFiscal(it) }
         loginViewModel.fiscal.observe(this) { fiscal -> sucessGetFiscal(fiscal) }
         loginViewModel.allTurmas.observe(this) { allTurmas -> sucessGetAllTurma(allTurmas) }
         loginViewModel.loading.observe(this) { onLoading(it) }
@@ -41,7 +42,7 @@ class LoginFragment : Fragment() {
 
     private fun onInsertTurma(data: Boolean?) {
         data?.let {
-            if (!it){
+            if (!it) {
                 //Não foi possivel atualizar turma
             }
         }
@@ -49,7 +50,7 @@ class LoginFragment : Fragment() {
 
     private fun onInsertFiscal(data: Boolean?) {
         data?.let {
-            if (!it){
+            if (!it) {
                 //Não foi possivel atualizar os fiscais
             }
         }
@@ -57,7 +58,7 @@ class LoginFragment : Fragment() {
 
     private fun onInsertFiscalSaved(data: Boolean?) {
         data?.let {
-            if (it){
+            if (it) {
                 // fiscal logado salvo na tabela
             }
         }
@@ -75,8 +76,10 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btUpdate.setOnClickListener {
+            updateFromJsonFile()
+        }
 
-        val fiscal = context?.toDataList()?.dataList?.fiscal
     }
 
     private fun sucessGetFiscal(fiscal: Fiscal?) {
@@ -89,12 +92,30 @@ class LoginFragment : Fragment() {
 
     private fun onLoading(loading: Boolean?) {
         loading?.let {
-
+            if (loading == true) {
+                binding.clLoginSecond.visibility = View.GONE
+                binding.progressBarLogin.visibility = View.VISIBLE
+            } else {
+                binding.progressBarLogin.visibility = View.GONE
+                binding.clLoginSecond.visibility = View.VISIBLE
+            }
         }
     }
 
     private fun onError(error: Event.Error?) {
         if (error == null)
             return
+        else
+            context?.showDialog("Desculpe não foi possível completar a ação, tente novamente")
+    }
+
+    private fun updateFromJsonFile() {
+        onLoading(true)
+
+        val list = context?.toDataList()?.dataList
+        list?.let {
+            onLoading(false)
+            context?.showDialog("Cadastros atualizados com sucesso!")
+        } ?: kotlin.run { onLoading(false) }
     }
 }
