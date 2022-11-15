@@ -7,8 +7,8 @@ interface FiscalDao {
     @Query("SELECT * FROM fiscal ORDER BY matricula DESC")
     fun getAllFiscal(): List<FiscalEntity>?
 
-    @Query("SELECT * FROM fiscal WHERE  matricula = :matricula AND turma = :turma")
-    fun getFiscal(matricula: Long, turma: Long): FiscalEntity?
+    @Query("SELECT * FROM fiscal WHERE  matricula = :matricula AND turma = :turma AND senha = :senha")
+    fun getFiscal(matricula: Long, turma: Long, senha: String): List<FiscalEntity>?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg fiscal: FiscalEntity)
