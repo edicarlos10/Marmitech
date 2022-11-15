@@ -16,11 +16,12 @@ class LoginLocalData(
     private val appDatabase: AppDatabase
 ) : ILoginLocalData {
 
-    override fun getFiscal(matricula: Long?, turma: Long?): Single<Fiscal> {
+    override fun getFiscal(matricula: Long?, turma: Long?, senha: String?): Single<List<Fiscal>> {
         return Single.create {
-            appDatabase.fiscalDao().getFiscal(matricula ?: 0, turma ?: 0)?.let { fiscal ->
-                it.onSuccess(fiscal.toFiscal())
-            } ?: it.onError(ThrowableBase(Error.GENERIC_ERROR))
+            appDatabase.fiscalDao().getFiscal(matricula ?: 0, turma ?: 0, senha ?: "")
+                ?.let { fiscal ->
+                    it.onSuccess(fiscal.map{it.toFiscal()})
+                } ?: it.onError(ThrowableBase(Error.GENERIC_ERROR))
         }
     }
 
@@ -36,16 +37,17 @@ class LoginLocalData(
 
     override fun getFiscalSaved(matricula: Long?, turma: Long?): Single<FiscalSaved> {
         return Single.create {
-            appDatabase.fiscalSavedDao().getFiscalSaved(matricula ?: 0, turma ?: 0)?.let { fiscalSaved ->
-                it.onSuccess(fiscalSaved.toFiscalSaved())
-            } ?: it.onError(ThrowableBase(Error.GENERIC_ERROR))
+            appDatabase.fiscalSavedDao().getFiscalSaved(matricula ?: 0, turma ?: 0)
+                ?.let { fiscalSaved ->
+                    it.onSuccess(fiscalSaved.toFiscalSaved())
+                } ?: it.onError(ThrowableBase(Error.GENERIC_ERROR))
         }
     }
 
     override fun insertTurma(turma: Turma): Completable {
         return Completable.create {
             appDatabase.turmaDao().insert(TurmaEntity.fromTurma(turma))
-                it.onComplete()
+            it.onComplete()
         }
     }
 

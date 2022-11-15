@@ -29,8 +29,8 @@ class LoginViewModel(
     val loading: LiveData<Boolean?>
         get() = _loading
 
-    private val _fiscal = MutableLiveData<Fiscal?>()
-    val fiscal: LiveData<Fiscal?>
+    private val _fiscal = MutableLiveData<List<Fiscal>?>()
+    val fiscal: LiveData<List<Fiscal>?>
         get() = _fiscal
 
     private val _fiscalSaved = MutableLiveData<FiscalSaved?>()
@@ -53,14 +53,14 @@ class LoginViewModel(
     val insertFiscal: LiveData<Boolean>
         get() = _insertFiscal
 
-    fun getFiscal(matricula: Long, turma: Long) {
-        getFiscalUseCase.execute(matricula, turma)
+    fun getFiscal(matricula: Long, turma: Long, senha: String) {
+        getFiscalUseCase.execute(matricula, turma, senha)
             .subscribeOn(scheduler.backgroundThread())
             .observeOn(scheduler.mainThread())
             .subscribe {
                 _loading.value = it.isLoading()
                 when (it) {
-                    is Event.Data<Fiscal> -> {
+                    is Event.Data<List<Fiscal>> -> {
                         _fiscal.value = it.data
                     }
                     is Event.Error -> {

@@ -1,17 +1,25 @@
 package com.example.marmitech.marmitechUI.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
+import com.example.domain.marmitech.appPeople.model.DataList
 import com.example.domain.marmitech.appPeople.model.Fiscal
+import com.example.domain.marmitech.appPeople.model.FiscalSaved
 import com.example.domain.marmitech.appPeople.model.Turma
 import com.example.domain.marmitech.base.Event
+import com.example.marmitech.R
 import com.example.marmitech.databinding.FragmentLoginBinding
 import com.example.marmitech.extension.showDialog
+import com.example.marmitech.extension.showToast
 import com.example.marmitech.extension.toDataList
 import com.example.marmitech.marmitechUI.LoginViewModel
+import com.example.marmitech.marmitechUI.adapter.TurmaAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
@@ -27,6 +35,7 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private val loginViewModel: LoginViewModel by viewModel()
+    private var turmaSelected: Turma? = null
 
     override fun onCreate(savedInstance: Bundle?) {
         super.onCreate(savedInstance)
@@ -40,34 +49,8 @@ class LoginFragment : Fragment() {
         loginViewModel.error.observe(this) { onError(it) }
     }
 
-    private fun onInsertTurma(data: Boolean?) {
-        data?.let {
-            if (!it) {
-                //Não foi possivel atualizar turma
-            }
-        }
-    }
-
-    private fun onInsertFiscal(data: Boolean?) {
-        data?.let {
-            if (!it) {
-                //Não foi possivel atualizar os fiscais
-            }
-        }
-    }
-
-    private fun onInsertFiscalSaved(data: Boolean?) {
-        data?.let {
-            if (it) {
-                // fiscal logado salvo na tabela
-            }
-        }
-    }
-
     override fun onCreateView(
-        inflator: LayoutInflater,
-        container: ViewGroup?,
-        savedInstance: Bundle?
+        inflator: LayoutInflater, container: ViewGroup?, savedInstance: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflator, container, false)
         return binding.root
@@ -80,14 +63,139 @@ class LoginFragment : Fragment() {
             updateFromJsonFile()
         }
 
+        binding.btSignIn.setOnClickListener {
+            if (binding.matriculaEditText.text.toString()
+                    .isEmpty() || binding.passwords.text.toString()
+                    .isEmpty() || turmaSelected == null
+            ) {
+                context?.showDialog("Existe campos vazios")
+            } else {
+                loginViewModel.getFiscal(
+                    binding.matriculaEditText.text.toString().toLong(),
+                    turmaSelected?.codigo ?: 0,
+                    binding.passwords.text.toString()
+                )
+            }
+        }
+        updateFromJsonFile(true)
     }
 
-    private fun sucessGetFiscal(fiscal: Fiscal?) {
+    override fun onResume() {
+        super.onResume()
 
+        binding.matriculaEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                binding.matriculaLayout.error = getString(R.string.tv_required)
+                binding.matriculaLayout.isErrorEnabled = s.isEmpty()
+            }
+        })
+
+        binding.passwords.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                binding.passwordLayout.error = getString(R.string.tv_required)
+                binding.passwordLayout.isErrorEnabled = s.isEmpty()
+            }
+        })
+    }
+
+    private fun updateFromJsonFile(first: Boolean = false) {
+        onLoading(true)
+
+        val list = context?.toDataList()?.dataList
+        list?.let {
+            insert(it, first)
+        } ?: kotlin.run { onLoading(false) }
+    }
+
+    private fun insert(dataList: DataList?, first: Boolean = false) {
+        dataList?.let { objects ->
+            objects.turma?.let { turmaList ->
+                turmaList.iterator().forEach { turma ->
+                    loginViewModel.insertTurma(turma)
+                }
+            }
+
+            objects.fiscal?.let { fiscalList ->
+                fiscalList.iterator().forEach { fiscal ->
+                    loginViewModel.insertFiscal(fiscal)
+                }
+            }
+        }
+        if (!first)
+            context?.showDialog("Cadastros atualizados com sucesso!")
     }
 
     private fun sucessGetAllTurma(allTurmas: List<Turma>?) {
+        activity?.let { act ->
+            allTurmas?.let {
+                val adapter = TurmaAdapter(it)
+                binding.spinnerTurmas.adapter = adapter
+                binding.spinnerTurmas.setSelection(0)
 
+                binding.spinnerTurmas.onItemSelectedListener =
+                    (object : AdapterView.OnItemSelectedListener {
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
+                            turmaSelected = null
+                        }
+
+                        override fun onItemSelected(
+                            parent: AdapterView<*>,
+                            view: View?,
+                            position: Int,
+                            id: Long
+                        ) {
+                            turmaSelected = parent.getItemAtPosition(position) as Turma
+                        }
+                    })
+            }
+        }
+    }
+
+    private fun sucessGetFiscal(fiscal: List<Fiscal>?) {
+        fiscal?.takeIf { it.isNotEmpty() }?.get(0)?.let {
+            lateinit var fiscalSaved: FiscalSaved
+            fiscalSaved.matricula = it.matricula
+            fiscalSaved.nome = it.nome
+            fiscalSaved.turma = it.turma
+
+            loginViewModel.insertFiscalSaved(fiscalSaved)
+        } ?: kotlin.run {
+            context?.showDialog("Matricula ou senha errada, tente novamente.")
+        }
+    }
+
+    private fun onInsertTurma(data: Boolean?) {
+        data?.let {
+            if (!it) {
+                context?.showToast("Não foi possível atualizar as turmas, tente novamente.")
+            } else {
+                loginViewModel.getAllTurma()
+            }
+        }
+    }
+
+    private fun onInsertFiscal(data: Boolean?) {
+        data?.let {
+            if (!it) {
+                context?.showToast("Não foi possível atualizar os fiscais, tente novamente.")
+            }
+        }
+    }
+
+    private fun onInsertFiscalSaved(data: Boolean?) {
+        data?.let {
+            if (it) {
+                // fiscal logado salvo na tabela
+            }
+        }
     }
 
     private fun onLoading(loading: Boolean?) {
@@ -98,24 +206,13 @@ class LoginFragment : Fragment() {
             } else {
                 binding.progressBarLogin.visibility = View.GONE
                 binding.clLoginSecond.visibility = View.VISIBLE
+
             }
         }
     }
 
     private fun onError(error: Event.Error?) {
-        if (error == null)
-            return
-        else
-            context?.showDialog("Desculpe não foi possível completar a ação, tente novamente")
-    }
-
-    private fun updateFromJsonFile() {
-        onLoading(true)
-
-        val list = context?.toDataList()?.dataList
-        list?.let {
-            onLoading(false)
-            context?.showDialog("Cadastros atualizados com sucesso!")
-        } ?: kotlin.run { onLoading(false) }
+        if (error == null) return
+        else context?.showDialog("Desculpe não foi possível completar a ação, tente novamente.")
     }
 }

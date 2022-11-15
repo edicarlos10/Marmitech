@@ -13,7 +13,7 @@ class LoginRepository(
     private val localData: ILoginLocalData,
     private val appDatabase: AppDatabase
 ) : ILoginRepository {
-    override fun getFiscal(matricula: Long, turma: Long) = localData.getFiscal(matricula, turma)
+    override fun getFiscal(matricula: Long, turma: Long, senha: String) = localData.getFiscal(matricula, turma, senha)
         .onErrorResumeNext { ThrowableBase.parseError(it).toSingleError() }
 
     override fun getAllTurmas() = localData.getAllTurmas()
