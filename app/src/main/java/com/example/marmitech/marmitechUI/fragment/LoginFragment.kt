@@ -131,8 +131,7 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-        if (!first)
-            context?.showDialog("Cadastros atualizados com sucesso!")
+        if (!first) context?.showDialog("Cadastros atualizados com sucesso!")
     }
 
     private fun sucessGetAllTurma(allTurmas: List<Turma>?) {
@@ -149,10 +148,7 @@ class LoginFragment : Fragment() {
                         }
 
                         override fun onItemSelected(
-                            parent: AdapterView<*>,
-                            view: View?,
-                            position: Int,
-                            id: Long
+                            parent: AdapterView<*>, view: View?, position: Int, id: Long
                         ) {
                             turmaSelected = parent.getItemAtPosition(position) as Turma
                         }
@@ -190,8 +186,6 @@ class LoginFragment : Fragment() {
     private fun onInsertFiscalSaved(data: Boolean?) {
         data?.let {
             if (it) {
-                // fiscal logado salvo na tabela
-
                 val intent = Intent(context, ApontamentoActivity::class.java)
                 startActivity(intent)
             }
@@ -206,7 +200,6 @@ class LoginFragment : Fragment() {
             } else {
                 binding.progressBarLogin.visibility = View.GONE
                 binding.clLoginSecond.visibility = View.VISIBLE
-
             }
         }
     }
