@@ -10,7 +10,7 @@ fun Context.showDialog(message: String, title: String = "") {
     var alertDialog: AlertDialog? = null
     try {
         val builder = AlertDialog.Builder(this)
-        if (title != ""){
+        if (title != "") {
             builder.setTitle(title)
         }
         builder.setMessage(message)
@@ -25,4 +25,12 @@ fun Context.showDialog(message: String, title: String = "") {
     }
 
     alertDialog?.getButton(DialogInterface.BUTTON_POSITIVE)?.setTextColor(Color.BLUE)
+}
+
+fun Context.showToast(message: String) {
+    Toast.makeText(
+        this,
+        message,
+        Toast.LENGTH_LONG
+    ).show()
 }
