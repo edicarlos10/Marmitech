@@ -1,8 +1,8 @@
 package com.example.network.weather.marmitech.appPeople
 
+import com.example.domain.marmitech.appPeople.ILoginRepository
 import com.example.domain.marmitech.appPeople.model.Fiscal
 import com.example.domain.marmitech.appPeople.model.FiscalSaved
-import com.example.domain.marmitech.appPeople.ILoginRepository
 import com.example.domain.marmitech.appPeople.model.Turma
 import com.example.domain.marmitech.base.ThrowableBase
 import com.example.network.weather.marmitech.appPeople.local.ILoginLocalData

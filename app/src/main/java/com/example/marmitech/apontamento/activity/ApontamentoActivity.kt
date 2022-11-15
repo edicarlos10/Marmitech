@@ -1,8 +1,7 @@
 package com.example.marmitech.apontamento.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.marmitech.R
+import androidx.appcompat.app.AppCompatActivity
 import com.example.marmitech.databinding.ActivityLoginBinding
 import com.example.marmitech.extension.viewBinding
 
