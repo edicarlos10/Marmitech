@@ -12,5 +12,6 @@ interface ILoginLocalData {
     fun getFiscalSaved(matricula: Long?, turma: Long?): Single<FiscalSaved>
     fun insertTurma(turma: Turma): Completable
     fun insertFiscalSaved(fiscaSaved: FiscalSaved): Completable
-    fun insertFiscal(fisca: Fiscal): Completable
+    fun insertFiscal(fiscal: Fiscal): Completable
+    fun deleteAllFiscalSaved(): Completable
 }

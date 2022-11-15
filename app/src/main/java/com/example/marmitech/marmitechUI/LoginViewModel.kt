@@ -18,7 +18,8 @@ class LoginViewModel(
     private val insertTurmaUseCase: InsertTurmaUseCase,
     private val insertFiscalSavedUseCase: InsertFiscalSavedUseCase,
     private val insertFiscalUseCase: InsertFiscalUseCase,
-    private val getTurmaUseCase: GetTurmaUseCase
+    private val getTurmaUseCase: GetTurmaUseCase,
+    private val removeAllFiscalSavedUseCase: RemoveAllFiscalSavedUseCase
 ) : BaseViewModel(scheduler) {
 
     private val _error = MutableLiveData<Event.Error?>()
@@ -52,6 +53,10 @@ class LoginViewModel(
     private val _insertFiscal = MutableLiveData<Boolean>()
     val insertFiscal: LiveData<Boolean>
         get() = _insertFiscal
+
+    private val _deleteAllFiscalSaved = MutableLiveData<Boolean>()
+    val deleteAllFiscalSaved: LiveData<Boolean>
+        get() = _deleteAllFiscalSaved
 
     fun getFiscal(matricula: Long, turma: Long, senha: String) {
         getFiscalUseCase.execute(matricula, turma, senha)
@@ -150,6 +155,22 @@ class LoginViewModel(
                     is Event.Error -> {
                         _error.value = event
                     }
+                    else -> Unit
+                }
+            }.addTo(disposables)
+    }
+
+    fun deleteAllFiscalSaved() {
+
+        removeAllFiscalSavedUseCase.execute()
+            .subscribeOn(scheduler.backgroundThread())
+            .observeOn(scheduler.mainThread())
+            .subscribe {
+                when (it) {
+                    is Event.Data<*> -> {
+                        _deleteAllFiscalSaved.value = it.data as Boolean
+                    }
+                    is Event.Error -> _error.value = it
                     else -> Unit
                 }
             }.addTo(disposables)

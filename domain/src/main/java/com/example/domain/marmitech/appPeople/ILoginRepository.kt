@@ -13,4 +13,5 @@ interface ILoginRepository {
     fun insertTurma(turma: Turma): Completable
     fun insertFiscalSaved(fiscal: FiscalSaved): Completable
     fun insertFiscal(fiscal: Fiscal): Completable
+    fun deleteAllFiscalSaved(): Completable
 }

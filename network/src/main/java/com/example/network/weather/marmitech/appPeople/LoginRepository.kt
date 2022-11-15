@@ -43,4 +43,9 @@ class LoginRepository(
                 ThrowableBase.parseError(it).toCompletableError()
             }
     }
+
+    override fun deleteAllFiscalSaved(): Completable {
+        return localData.deleteAllFiscalSaved()
+            .onErrorResumeNext { ThrowableBase.parseError(it).toCompletableError() }
+    }
 }

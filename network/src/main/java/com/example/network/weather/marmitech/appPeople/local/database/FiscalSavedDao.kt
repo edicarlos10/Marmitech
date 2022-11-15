@@ -10,4 +10,7 @@ interface FiscalSavedDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg fiscalSaved: FiscalSavedEntity)
+
+    @Query("DELETE FROM fiscal_saved")
+    fun deleteAllFiscalSaved()
 }

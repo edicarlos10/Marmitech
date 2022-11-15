@@ -64,4 +64,11 @@ class LoginLocalData(
             it.onComplete()
         }
     }
+
+    override fun deleteAllFiscalSaved(): Completable {
+        return Completable.create {
+            appDatabase.fiscalSavedDao().deleteAllFiscalSaved()
+            it.onComplete()
+        }
+    }
 }
