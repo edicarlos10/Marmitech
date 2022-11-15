@@ -47,6 +47,7 @@ class LoginFragment : Fragment() {
         loginViewModel.insertFiscal.observe(this) { onInsertFiscal(it) }
         loginViewModel.fiscal.observe(this) { fiscal -> sucessGetFiscal(fiscal) }
         loginViewModel.allTurmas.observe(this) { allTurmas -> sucessGetAllTurma(allTurmas) }
+        loginViewModel.deleteAllFiscalSaved.observe(this) {}
         loginViewModel.loading.observe(this) { onLoading(it) }
         loginViewModel.error.observe(this) { onError(it) }
     }
@@ -79,11 +80,13 @@ class LoginFragment : Fragment() {
                 )
             }
         }
+
         updateFromJsonFile(true)
     }
 
     override fun onResume() {
         super.onResume()
+        loginViewModel.deleteAllFiscalSaved()
 
         binding.matriculaEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}

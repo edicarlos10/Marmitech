@@ -17,7 +17,8 @@ val loginModule = module {
             insertTurmaUseCase = get(),
             insertFiscalSavedUseCase = get(),
             insertFiscalUseCase = get(),
-            getTurmaUseCase = get()
+            getTurmaUseCase = get(),
+            removeAllFiscalSavedUseCase = get()
         )
     }
 
@@ -27,6 +28,7 @@ val loginModule = module {
     factory { InsertTurmaUseCase(repository = get()) }
     factory { InsertFiscalSavedUseCase(repository = get()) }
     factory { InsertFiscalUseCase(repository = get()) }
+    factory { RemoveAllFiscalSavedUseCase(repository = get()) }
 
     single<ILoginRepository> { LoginRepository(localData = get(), appDatabase = get()) }
     factory<ILoginLocalData> { LoginLocalData(appDatabase = get()) }
