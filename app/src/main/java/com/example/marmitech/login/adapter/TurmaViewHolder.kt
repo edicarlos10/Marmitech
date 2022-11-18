@@ -1,4 +1,4 @@
-package com.example.marmitech.marmitechUI.adapter
+package com.example.marmitech.login.adapter
 
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView

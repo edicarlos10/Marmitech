@@ -1,4 +1,4 @@
-package com.example.marmitech.marmitechUI.adapter
+package com.example.marmitech.login.adapter
 
 import android.view.LayoutInflater
 import android.view.View

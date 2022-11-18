@@ -1,4 +1,4 @@
-package com.example.marmitech.marmitechUI
+package com.example.marmitech.login
 
 import com.example.domain.marmitech.appPeople.ILoginRepository
 import com.example.domain.marmitech.appPeople.usecase.*

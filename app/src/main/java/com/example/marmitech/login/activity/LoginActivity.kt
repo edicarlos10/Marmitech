@@ -1,10 +1,10 @@
-package com.example.marmitech.marmitechUI.activity
+package com.example.marmitech.login.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.marmitech.databinding.ActivityLoginBinding
 import com.example.marmitech.extension.viewBinding
-import com.example.marmitech.marmitechUI.fragment.LoginFragment
+import com.example.marmitech.login.fragment.LoginFragment
 
 class LoginActivity : AppCompatActivity() {
 

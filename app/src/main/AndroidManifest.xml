@@ -32,7 +32,7 @@
                 android:value=".apontamento.activity.ApontamentoActivity" />
         </activity>
         <activity
-            android:name="com.example.marmitech.marmitechUI.activity.LoginActivity"
+            android:name="com.example.marmitech.login.activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,7 +45,7 @@
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.marmitech.marmitechUI.activity.LoginActivity" />
+                android:value="com.example.marmitech.login.activity.LoginActivity" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

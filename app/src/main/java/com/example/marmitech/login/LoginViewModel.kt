@@ -1,4 +1,4 @@
-package com.example.marmitech.marmitechUI
+package com.example.marmitech.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

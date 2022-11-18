@@ -1,4 +1,4 @@
-package com.example.marmitech.marmitechUI.fragment
+package com.example.marmitech.login.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -20,8 +20,8 @@ import com.example.marmitech.databinding.FragmentLoginBinding
 import com.example.marmitech.extension.showDialog
 import com.example.marmitech.extension.showToast
 import com.example.marmitech.extension.toDataList
-import com.example.marmitech.marmitechUI.LoginViewModel
-import com.example.marmitech.marmitechUI.adapter.TurmaAdapter
+import com.example.marmitech.login.LoginViewModel
+import com.example.marmitech.login.adapter.TurmaAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
