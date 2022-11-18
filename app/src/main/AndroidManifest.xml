@@ -24,6 +24,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Marmitech">
         <activity
+            android:name=".funcionario.activity.FuncionarioActivity"
+            android:exported="false"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".apontamento.activity.ApontamentoActivity" />
+        </activity>
+        <activity
             android:name="com.example.marmitech.marmitechUI.activity.LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -35,6 +43,10 @@
         <activity
             android:name="com.example.marmitech.apontamento.activity.ApontamentoActivity"
             android:exported="true">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.marmitech.marmitechUI.activity.LoginActivity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
