@@ -3,13 +3,13 @@
     "fiscal": [
       {
         "senha":"213",
-        "turma":1,
+        "turma":2,
         "nome":"Edi Carlos",
         "matricula":1
       },
       {
         "senha":"213",
-        "turma":2,
+        "turma":1,
         "nome":"João Francisco da Silva",
         "matricula":2
       },
@@ -29,6 +29,33 @@
       },
       {
         "codigo":3
+      }
+    ],
+    "funcionario":[
+      {
+        "turma":2,
+        "nome":"Yuri Morábito da Silva",
+        "matricula":667
+      },
+      {
+        "turma":2,
+        "nome":"Aparecido Montenegro",
+        "matricula":7327
+      },
+      {
+        "turma":2,
+        "nome":"Fábio Meirelles",
+        "matricula":887
+      },
+      {
+        "turma":1,
+        "nome":"Deivid Rodriges",
+        "matricula":887
+      },
+      {
+        "turma":3,
+        "nome":"Alberto Spada",
+        "matricula":887
       }
     ]
   }
