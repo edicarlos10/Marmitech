@@ -1,8 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintApontamento"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".apontamento.activity.ApontamentoActivity">
 
+    <ImageView
+        android:id="@+id/ivApontar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/apont"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvApontar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Apontar"
+        app:layout_constraintEnd_toEndOf="@+id/ivApontar"
+        app:layout_constraintStart_toStartOf="@+id/ivApontar"
+        app:layout_constraintTop_toBottomOf="@+id/ivApontar" />
+
+    <ImageView
+        android:id="@+id/ivConsultar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/report"
+        app:layout_constraintStart_toEndOf="@+id/ivApontar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvConsultar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Consulta"
+        app:layout_constraintEnd_toEndOf="@+id/ivConsultar"
+        app:layout_constraintStart_toStartOf="@+id/ivConsultar"
+        app:layout_constraintTop_toBottomOf="@+id/ivConsultar" />
+
+    <ImageView
+        android:id="@+id/ivIntegrar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/json"
+        app:layout_constraintStart_toEndOf="@+id/ivConsultar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvIntegrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Integrar"
+        app:layout_constraintEnd_toEndOf="@+id/ivIntegrar"
+        app:layout_constraintStart_toStartOf="@+id/ivIntegrar"
+        app:layout_constraintTop_toBottomOf="@+id/ivIntegrar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
