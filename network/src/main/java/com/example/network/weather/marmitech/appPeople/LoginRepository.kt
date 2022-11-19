@@ -3,18 +3,27 @@ package com.example.network.weather.marmitech.appPeople
 import com.example.domain.marmitech.appPeople.ILoginRepository
 import com.example.domain.marmitech.appPeople.model.Fiscal
 import com.example.domain.marmitech.appPeople.model.FiscalSaved
+import com.example.domain.marmitech.appPeople.model.Funcionario
 import com.example.domain.marmitech.appPeople.model.Turma
 import com.example.domain.marmitech.base.ThrowableBase
 import com.example.network.weather.marmitech.appPeople.local.ILoginLocalData
 import com.example.network.weather.marmitech.database.AppDatabase
 import io.reactivex.Completable
+import io.reactivex.Single
 
 class LoginRepository(
     private val localData: ILoginLocalData,
     private val appDatabase: AppDatabase
 ) : ILoginRepository {
-    override fun getFiscal(matricula: Long, turma: Long, senha: String) = localData.getFiscal(matricula, turma, senha)
-        .onErrorResumeNext { ThrowableBase.parseError(it).toSingleError() }
+    //override fun getAllFuncionario(turma: Long) = localData.getAllFuncionario(turma)
+      //  .onErrorResumeNext { ThrowableBase.parseError(it).toSingleError() }
+
+    //override fun getFuncionario(matricula: Long, turma: Long) = localData.getFuncionario(matricula, turma)
+      //  .onErrorResumeNext { ThrowableBase.parseError(it).toSingleError() }
+
+    override fun getFiscal(matricula: Long, turma: Long, senha: String) =
+        localData.getFiscal(matricula, turma, senha)
+            .onErrorResumeNext { ThrowableBase.parseError(it).toSingleError() }
 
     override fun getAllTurmas() = localData.getAllTurmas()
         .onErrorResumeNext { ThrowableBase.parseError(it).toSingleError() }
@@ -39,6 +48,13 @@ class LoginRepository(
 
     override fun insertFiscal(fiscal: Fiscal): Completable {
         return localData.insertFiscal(fiscal)
+            .onErrorResumeNext {
+                ThrowableBase.parseError(it).toCompletableError()
+            }
+    }
+
+    override fun insertFuncionario(funcionario: Funcionario): Completable {
+        return localData.insertFuncionario(funcionario)
             .onErrorResumeNext {
                 ThrowableBase.parseError(it).toCompletableError()
             }

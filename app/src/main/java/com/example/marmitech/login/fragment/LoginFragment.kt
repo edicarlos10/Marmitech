@@ -44,6 +44,7 @@ class LoginFragment : Fragment() {
 
         loginViewModel.insertTurma.observe(this) { onInsertTurma(it) }
         loginViewModel.insertFiscalSaved.observe(this) { onInsertFiscalSaved(it) }
+      //  loginViewModel.insertFuncionario.observe(this) { onInsertFuncionario(it) }
         loginViewModel.insertFiscal.observe(this) { onInsertFiscal(it) }
         loginViewModel.fiscal.observe(this) { fiscal -> sucessGetFiscal(fiscal) }
         loginViewModel.allTurmas.observe(this) { allTurmas -> sucessGetAllTurma(allTurmas) }
@@ -133,6 +134,12 @@ class LoginFragment : Fragment() {
                     loginViewModel.insertFiscal(fiscal)
                 }
             }
+
+           // objects.funcionario?.let { funcionarioList ->
+           //     funcionarioList.iterator().forEach { funcionario ->
+            //        loginViewModel.insertFuncionario(funcionario)
+            //    }
+           // }
         }
         if (!first) context?.showDialog("Cadastros atualizados com sucesso!")
     }
@@ -191,6 +198,14 @@ class LoginFragment : Fragment() {
             if (it) {
                 val intent = Intent(context, ApontamentoActivity::class.java)
                 startActivity(intent)
+            }
+        }
+    }
+
+    private fun onInsertFuncionario(data: Boolean?) {
+        data?.let {
+            if (!it) {
+                context?.showToast("Não foi possível atualizar os funcionarios, tente novamente.")
             }
         }
     }

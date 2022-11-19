@@ -7,4 +7,5 @@ import kotlinx.android.parcel.Parcelize
 data class DataList(
     var fiscal: List<Fiscal>? = null,
     var turma: List<Turma>? = null
+    //var funcionario: List<Funcionario>? = null
 ): Parcelable
