@@ -44,7 +44,7 @@ class LoginFragment : Fragment() {
 
         loginViewModel.insertTurma.observe(this) { onInsertTurma(it) }
         loginViewModel.insertFiscalSaved.observe(this) { onInsertFiscalSaved(it) }
-      //  loginViewModel.insertFuncionario.observe(this) { onInsertFuncionario(it) }
+        loginViewModel.insertFuncionario.observe(this) { onInsertFuncionario(it) }
         loginViewModel.insertFiscal.observe(this) { onInsertFiscal(it) }
         loginViewModel.fiscal.observe(this) { fiscal -> sucessGetFiscal(fiscal) }
         loginViewModel.allTurmas.observe(this) { allTurmas -> sucessGetAllTurma(allTurmas) }
@@ -135,11 +135,11 @@ class LoginFragment : Fragment() {
                 }
             }
 
-           // objects.funcionario?.let { funcionarioList ->
-           //     funcionarioList.iterator().forEach { funcionario ->
-            //        loginViewModel.insertFuncionario(funcionario)
-            //    }
-           // }
+            objects.funcionario?.let { funcionarioList ->
+                funcionarioList.iterator().forEach { funcionario ->
+                    loginViewModel.insertFuncionario(funcionario)
+                }
+            }
         }
         if (!first) context?.showDialog("Cadastros atualizados com sucesso!")
     }

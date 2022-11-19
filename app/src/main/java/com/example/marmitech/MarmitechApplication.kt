@@ -18,7 +18,7 @@ class MarmitechApplication : Application(){
     private fun initModules(){
         startKoin {
             androidContext(this@MarmitechApplication)
-            modules(networkModule, loginModule, databaseModule, funcionarioModule)
+            modules(networkModule, loginModule, databaseModule)
         }
     }
 }
