@@ -1,11 +1,10 @@
-package com.example.marmitech.funcionario.activity
+package com.example.marmitech.apontamento.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
 import com.example.marmitech.databinding.ActivityFuncionarioBinding
-import com.example.marmitech.funcionario.fragment.FuncionarioFragment
-import com.google.android.material.snackbar.Snackbar
+import com.example.marmitech.apontamento.fragment.FuncionarioFragment
 
 class FuncionarioActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.example.marmitech.funcionario.fragment
+package com.example.marmitech.apontamento.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

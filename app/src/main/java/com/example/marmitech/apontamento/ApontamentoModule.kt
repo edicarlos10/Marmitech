@@ -1,8 +1,10 @@
-package com.example.marmitech.funcionario
+package com.example.marmitech.apontamento
 
 import com.example.domain.marmitech.appPeople.IApontamentoRepository
+import com.example.domain.marmitech.appPeople.usecase.GetAllApontamentoCase
 import com.example.domain.marmitech.appPeople.usecase.GetAllFuncionariosUseCase
 import com.example.domain.marmitech.appPeople.usecase.GetFuncionarioUseCase
+import com.example.domain.marmitech.appPeople.usecase.InsertApontamentoUseCase
 import com.example.network.weather.marmitech.appPeople.ApontamentoRepository
 import com.example.network.weather.marmitech.appPeople.local.ApontamentoLocalData
 import com.example.network.weather.marmitech.appPeople.local.IApontamentoLocalData
@@ -11,15 +13,19 @@ import org.koin.dsl.module
 
 val funcionarioModule = module {
     viewModel {
-        FuncionarioViewModel(
+        ApontamentoViewModel(
             scheduler = get(),
             getFuncionarioUseCase = get(),
-            getAllFuncionariosUseCase = get()
+            getAllFuncionariosUseCase = get(),
+            getAllApontamentoUseCase = get(),
+            insertApontamentoUseCase = get()
         )
     }
 
     factory { GetFuncionarioUseCase(repository = get()) }
     factory { GetAllFuncionariosUseCase(repository = get()) }
+    factory { InsertApontamentoUseCase(repository = get()) }
+    factory { GetAllApontamentoCase(repository = get()) }
 
     single<IApontamentoRepository> { ApontamentoRepository(localData = get(), appDatabase = get()) }
     factory<IApontamentoLocalData> { ApontamentoLocalData(appDatabase = get()) }
