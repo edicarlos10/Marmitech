@@ -15,13 +15,14 @@ import com.example.domain.marmitech.appPeople.model.FiscalSaved
 import com.example.domain.marmitech.appPeople.model.Turma
 import com.example.domain.marmitech.base.Event
 import com.example.marmitech.R
-import com.example.marmitech.main.activity.MainActivity
+import com.example.marmitech.apontamento.activity.FuncionarioActivity.Companion.TURMA_SELECTED
 import com.example.marmitech.databinding.FragmentLoginBinding
 import com.example.marmitech.extension.showDialog
 import com.example.marmitech.extension.showToast
 import com.example.marmitech.extension.toDataList
 import com.example.marmitech.login.LoginViewModel
 import com.example.marmitech.login.adapter.TurmaAdapter
+import com.example.marmitech.main.activity.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
@@ -197,6 +198,7 @@ class LoginFragment : Fragment() {
         data?.let {
             if (it) {
                 val intent = Intent(context, MainActivity::class.java)
+                intent.putExtra(TURMA_SELECTED, turmaSelected?.codigo.toString() ?: "")
                 startActivity(intent)
             }
         }
