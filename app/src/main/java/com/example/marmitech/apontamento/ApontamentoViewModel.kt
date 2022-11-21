@@ -104,6 +104,7 @@ class ApontamentoViewModel(
         insertApontamentoUseCase.execute(apontamento).subscribeOn(scheduler.backgroundThread())
             .observeOn(scheduler.mainThread())
             .subscribe { event ->
+                _loading.value = event.isLoading()
                 when (event) {
                     is Event.Data<Boolean> -> {
                         _insertApontamento.value = true

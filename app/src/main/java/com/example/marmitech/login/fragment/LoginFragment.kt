@@ -1,5 +1,6 @@
 package com.example.marmitech.login.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -15,7 +16,6 @@ import com.example.domain.marmitech.appPeople.model.FiscalSaved
 import com.example.domain.marmitech.appPeople.model.Turma
 import com.example.domain.marmitech.base.Event
 import com.example.marmitech.R
-import com.example.marmitech.apontamento.activity.FuncionarioActivity.Companion.TURMA_SELECTED
 import com.example.marmitech.databinding.FragmentLoginBinding
 import com.example.marmitech.extension.showDialog
 import com.example.marmitech.extension.showToast
@@ -73,7 +73,7 @@ class LoginFragment : Fragment() {
                     .isEmpty() || binding.passwords.text.toString()
                     .isEmpty() || turmaSelected == null
             ) {
-                context?.showDialog("Existe campos vazios")
+                activity?.showDialog("Existe campos vazios")
             } else {
                 loginViewModel.getFiscal(
                     binding.matriculaEditText.text.toString().toLong(),
@@ -142,7 +142,7 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-        if (!first) context?.showDialog("Cadastros atualizados com sucesso!")
+        if (!first) activity?.showDialog("Cadastros atualizados com sucesso!")
     }
 
     private fun sucessGetAllTurma(allTurmas: List<Turma>?) {
@@ -172,14 +172,14 @@ class LoginFragment : Fragment() {
         fiscal?.takeIf { it.isNotEmpty() }?.get(0)?.let {
             loginViewModel.insertFiscalSaved(FiscalSaved(it.matricula, it.nome, it.turma))
         } ?: kotlin.run {
-            context?.showDialog("Matricula ou senha errada, tente novamente.")
+            activity?.showDialog("Matricula ou senha errada, tente novamente.")
         }
     }
 
     private fun onInsertTurma(data: Boolean?) {
         data?.let {
             if (!it) {
-                context?.showToast("Não foi possível atualizar as turmas, tente novamente.")
+                activity?.showToast("Não foi possível atualizar as turmas, tente novamente.")
             } else {
                 loginViewModel.getAllTurma()
             }
@@ -189,7 +189,7 @@ class LoginFragment : Fragment() {
     private fun onInsertFiscal(data: Boolean?) {
         data?.let {
             if (!it) {
-                context?.showToast("Não foi possível atualizar os fiscais, tente novamente.")
+                activity?.showToast("Não foi possível atualizar os fiscais, tente novamente.")
             }
         }
     }
@@ -197,8 +197,14 @@ class LoginFragment : Fragment() {
     private fun onInsertFiscalSaved(data: Boolean?) {
         data?.let {
             if (it) {
+                val sharedPref =
+                    activity?.getSharedPreferences("turma_selected", Context.MODE_PRIVATE) ?: return
+                with(sharedPref.edit()) {
+                    putInt("turma_selected", turmaSelected?.codigo?.toInt() ?: 0)
+                    apply()
+                }
+
                 val intent = Intent(context, MainActivity::class.java)
-                intent.putExtra(TURMA_SELECTED, turmaSelected?.codigo.toString() ?: "")
                 startActivity(intent)
             }
         }
@@ -226,6 +232,6 @@ class LoginFragment : Fragment() {
 
     private fun onError(error: Event.Error?) {
         if (error == null) return
-        else context?.showDialog("Desculpe não foi possível completar a ação, tente novamente.")
+        else activity?.showDialog("Desculpe não foi possível completar a ação, tente novamente.")
     }
 }

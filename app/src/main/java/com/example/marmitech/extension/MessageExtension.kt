@@ -1,12 +1,13 @@
 package com.example.marmitech.extension
 
+import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 
-fun Context.showDialog(message: String, title: String = "") {
+fun Activity.showDialog(message: String, title: String = "", closeWindow: Boolean = false) {
     var alertDialog: AlertDialog? = null
     try {
         val builder = AlertDialog.Builder(this)
@@ -15,7 +16,9 @@ fun Context.showDialog(message: String, title: String = "") {
         }
         builder.setMessage(message)
             .setPositiveButton("OK") { _, _ ->
-
+                if(closeWindow) {
+                    finish()
+                }
             }
 
         alertDialog = builder.create()

@@ -1,5 +1,6 @@
 package com.example.marmitech.apontamento.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,19 +10,16 @@ import com.example.domain.marmitech.appPeople.model.Apontamento
 import com.example.domain.marmitech.appPeople.model.Funcionario
 import com.example.domain.marmitech.base.Event
 import com.example.marmitech.apontamento.ApontamentoViewModel
-import com.example.marmitech.apontamento.activity.FuncionarioActivity.Companion.TURMA_SELECTED
 import com.example.marmitech.databinding.FragmentFuncionarioBinding
 import com.example.marmitech.extension.showDialog
-import com.example.marmitech.login.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class FuncionarioFragment : Fragment() {
     companion object {
-        fun newInstance(turma: String): FuncionarioFragment {
+        fun newInstance(): FuncionarioFragment {
             val args = Bundle().apply { }
-            args.putSerializable(TURMA_SELECTED, turma)
             val fragment = FuncionarioFragment()
             fragment.arguments = args
             return fragment
@@ -30,7 +28,6 @@ class FuncionarioFragment : Fragment() {
 
     private var _binding: FragmentFuncionarioBinding? = null
     private val apontamentoViewModel: ApontamentoViewModel by viewModel()
-    private val loginViewModel: LoginViewModel by viewModel()
     private lateinit var listOfFuncionario: MutableList<Funcionario>
     private var turmaSelected: String? = null
     private var index = 0
@@ -40,9 +37,10 @@ class FuncionarioFragment : Fragment() {
 
         apontamentoViewModel.loading.observe(this) { onLoading(it) }
         apontamentoViewModel.error.observe(this) { onError(it) }
-        arguments?.let {
-            turmaSelected = it.getString(TURMA_SELECTED) ?: ""
-        }
+
+        val sharedPref =
+            activity?.getSharedPreferences("turma_selected", Context.MODE_PRIVATE) ?: return
+        turmaSelected = sharedPref.getInt("turma_selected", 0).toString()
 
         apontamentoViewModel.allFuncionario.observe(this) { listFuncionario ->
             sucessGetFuncionarios(
@@ -62,7 +60,11 @@ class FuncionarioFragment : Fragment() {
     private fun sucessInsertApontamento(apontamento: Boolean?) {
         apontamento?.let {
             if (it) {
-                binding.tvName.text = listOfFuncionario[index].nome
+                if (index < listOfFuncionario.size) {
+                    binding.tvName.text = listOfFuncionario[index].nome
+                } else {
+                    activity?.showDialog("Apontamentos finalizados!", "Atenção", true)
+                }
             }
         }
     }
@@ -120,10 +122,6 @@ class FuncionarioFragment : Fragment() {
             )
             apontamentoViewModel.insertApontamento(apontamento)
             index++
-        } else {
-            context?.showDialog("Você já terminou de fazer os apontamentos")
-            binding.btYes.isEnabled = false
-            binding.btNot.isEnabled = false
         }
     }
 
@@ -146,6 +144,6 @@ class FuncionarioFragment : Fragment() {
 
     private fun onError(error: Event.Error?) {
         if (error == null) return
-        else context?.showDialog("Desculpe não foi possível completar a ação, tente novamente.")
+        else activity?.showDialog("Desculpe não foi possível completar a ação, tente novamente.")
     }
 }
