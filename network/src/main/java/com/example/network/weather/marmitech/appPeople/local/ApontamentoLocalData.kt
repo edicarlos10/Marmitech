@@ -1,9 +1,12 @@
 package com.example.network.weather.marmitech.appPeople.local
 
+import com.example.domain.marmitech.appPeople.model.Apontamento
 import com.example.domain.marmitech.appPeople.model.Funcionario
 import com.example.domain.marmitech.base.Error
 import com.example.domain.marmitech.base.ThrowableBase
+import com.example.network.weather.marmitech.appPeople.local.database.ApontamentoEntity
 import com.example.network.weather.marmitech.database.AppDatabase
+import io.reactivex.Completable
 import io.reactivex.Single
 
 class ApontamentoLocalData(
@@ -27,4 +30,19 @@ class ApontamentoLocalData(
         }
     }
 
+    override fun getAllApontamento(): Single<List<Apontamento>> {
+        return Single.create {
+            appDatabase.apontamentoDao().getAllApontamento()
+                ?.let { apontamento ->
+                    it.onSuccess(apontamento.map { it.toApontamento() })
+                } ?: it.onError(ThrowableBase(Error.GENERIC_ERROR))
+        }
+    }
+
+    override fun insertApontamento(apontamento: Apontamento): Completable {
+        return Completable.create {
+            appDatabase.apontamentoDao().insert(ApontamentoEntity.fromApontamento(apontamento))
+            it.onComplete()
+        }
+    }
 }

@@ -3,7 +3,7 @@ package com.example.marmitech
 import android.app.Application
 import com.example.marmitech.di.databaseModule
 import com.example.marmitech.di.networkModule
-import com.example.marmitech.funcionario.funcionarioModule
+import com.example.marmitech.apontamento.funcionarioModule
 import com.example.marmitech.login.loginModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin

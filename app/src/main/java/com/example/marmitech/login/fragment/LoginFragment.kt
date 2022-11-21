@@ -15,7 +15,7 @@ import com.example.domain.marmitech.appPeople.model.FiscalSaved
 import com.example.domain.marmitech.appPeople.model.Turma
 import com.example.domain.marmitech.base.Event
 import com.example.marmitech.R
-import com.example.marmitech.apontamento.activity.ApontamentoActivity
+import com.example.marmitech.main.activity.MainActivity
 import com.example.marmitech.databinding.FragmentLoginBinding
 import com.example.marmitech.extension.showDialog
 import com.example.marmitech.extension.showToast
@@ -196,7 +196,7 @@ class LoginFragment : Fragment() {
     private fun onInsertFiscalSaved(data: Boolean?) {
         data?.let {
             if (it) {
-                val intent = Intent(context, ApontamentoActivity::class.java)
+                val intent = Intent(context, MainActivity::class.java)
                 startActivity(intent)
             }
         }
