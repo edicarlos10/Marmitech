@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class Apontamento (
     var matricula: Long? = null,
     var turma: Long? = null,
-    var date: String? = null
+    var date: String? = null,
+    var pegou: Boolean? = null
 ): Parcelable

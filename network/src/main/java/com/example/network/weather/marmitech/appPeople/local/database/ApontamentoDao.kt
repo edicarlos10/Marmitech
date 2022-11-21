@@ -4,7 +4,7 @@ import androidx.room.*
 
 @Dao
 interface ApontamentoDao {
-    @Query("SELECT * FROM main ORDER BY matricula DESC")
+    @Query("SELECT * FROM apontamento ORDER BY matricula DESC")
     fun getAllApontamento(): List<ApontamentoEntity>?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -5,13 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.domain.marmitech.appPeople.model.Apontamento
 import com.example.domain.marmitech.appPeople.model.Funcionario
 import com.example.domain.marmitech.base.Event
 import com.example.marmitech.apontamento.ApontamentoViewModel
 import com.example.marmitech.apontamento.activity.FuncionarioActivity.Companion.TURMA_SELECTED
 import com.example.marmitech.databinding.FragmentFuncionarioBinding
 import com.example.marmitech.extension.showDialog
+import com.example.marmitech.login.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class FuncionarioFragment : Fragment() {
     companion object {
@@ -26,12 +30,16 @@ class FuncionarioFragment : Fragment() {
 
     private var _binding: FragmentFuncionarioBinding? = null
     private val apontamentoViewModel: ApontamentoViewModel by viewModel()
-    private var listOfFuncionario: Funcionario? = null
+    private val loginViewModel: LoginViewModel by viewModel()
+    private lateinit var listOfFuncionario: MutableList<Funcionario>
     private var turmaSelected: String? = null
+    private var index = 0
 
     override fun onCreate(savedInstance: Bundle?) {
         super.onCreate(savedInstance)
 
+        apontamentoViewModel.loading.observe(this) { onLoading(it) }
+        apontamentoViewModel.error.observe(this) { onError(it) }
         arguments?.let {
             turmaSelected = it.getString(TURMA_SELECTED) ?: ""
         }
@@ -52,11 +60,23 @@ class FuncionarioFragment : Fragment() {
 
 
     private fun sucessInsertApontamento(apontamento: Boolean?) {
-        TODO("Not yet implemented")
+        apontamento?.let {
+            if (it) {
+                binding.tvName.text = listOfFuncionario[index].nome
+            }
+        }
     }
 
     private fun sucessGetFuncionarios(listFuncionario: List<Funcionario>?) {
-        TODO("Not yet implemented")
+        if (!listFuncionario.isNullOrEmpty()) {
+
+            val list = mutableListOf<Funcionario>()
+            listFuncionario.iterator().forEach {
+                list.add(it)
+            }
+            listOfFuncionario = list
+            binding.tvName.text = listOfFuncionario[index].nome
+        }
     }
 
 
@@ -75,14 +95,35 @@ class FuncionarioFragment : Fragment() {
 
         turmaSelected?.let {
             binding.tvTurmaNumber.text = it
+            apontamentoViewModel.getAllFuncionario(it.toLong())
         }
 
         binding.btYes.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            setMarmita(true)
         }
 
-        binding.btYes.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        binding.btNot.setOnClickListener {
+            setMarmita(false)
+        }
+    }
+
+    private fun setMarmita(pegou: Boolean) {
+        val instance = Calendar.getInstance()
+        instance.add(Calendar.DATE, 1)
+
+        if (index <= listOfFuncionario.size) {
+            val apontamento = Apontamento(
+                listOfFuncionario[index].matricula,
+                listOfFuncionario[index].turma?.toLong(),
+                SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(instance.time),
+                pegou
+            )
+            apontamentoViewModel.insertApontamento(apontamento)
+            index++
+        } else {
+            context?.showDialog("Você já terminou de fazer os apontamentos")
+            binding.btYes.isEnabled = false
+            binding.btNot.isEnabled = false
         }
     }
 

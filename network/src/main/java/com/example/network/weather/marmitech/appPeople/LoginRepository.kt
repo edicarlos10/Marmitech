@@ -15,11 +15,6 @@ class LoginRepository(
     private val localData: ILoginLocalData,
     private val appDatabase: AppDatabase
 ) : ILoginRepository {
-    //override fun getAllFuncionario(turma: Long) = localData.getAllFuncionario(turma)
-      //  .onErrorResumeNext { ThrowableBase.parseError(it).toSingleError() }
-
-    //override fun getFuncionario(matricula: Long, turma: Long) = localData.getFuncionario(matricula, turma)
-      //  .onErrorResumeNext { ThrowableBase.parseError(it).toSingleError() }
 
     override fun getFiscal(matricula: Long, turma: Long, senha: String) =
         localData.getFiscal(matricula, turma, senha)

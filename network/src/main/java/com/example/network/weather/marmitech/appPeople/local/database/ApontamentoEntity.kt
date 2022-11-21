@@ -6,17 +6,19 @@ import androidx.room.PrimaryKey
 import com.example.domain.marmitech.appPeople.model.Apontamento
 import java.io.Serializable
 
-@Entity(tableName = "main")
+@Entity(tableName = "apontamento")
 data class ApontamentoEntity(
     @PrimaryKey var matricula: Long? = null,
     @ColumnInfo(name = "turma") var turma: Long? = null,
     @ColumnInfo(name = "date") var date: String? = null,
+    @ColumnInfo(name = "pegou") var pegou: Boolean? = null,
 ) : Serializable {
     fun toApontamento(): Apontamento {
         return Apontamento(
-           matricula = matricula,
+            matricula = matricula,
             turma = turma,
             date = date,
+            pegou = pegou,
         )
     }
 
@@ -25,7 +27,8 @@ data class ApontamentoEntity(
             return ApontamentoEntity(
                 apontamento.matricula,
                 apontamento.turma,
-                apontamento.date
+                apontamento.date,
+                apontamento.pegou
             )
         }
     }
