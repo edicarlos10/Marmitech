@@ -18,10 +18,12 @@ val loginModule = module {
             insertFiscalSavedUseCase = get(),
             insertFiscalUseCase = get(),
             getTurmaUseCase = get(),
-            removeAllFiscalSavedUseCase = get()
+            removeAllFiscalSavedUseCase = get(),
+            insertFuncionarioUseCase = get()
         )
     }
 
+    factory { InsertFuncionarioUseCase(repository = get()) }
     factory { GetFiscalUseCase(repository = get()) }
     factory { GetTurmaUseCase(repository = get()) }
     factory { GetFiscalSavedUseCase(repository = get()) }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.domain.marmitech.appPeople.model.Fiscal
 import com.example.domain.marmitech.appPeople.model.FiscalSaved
+import com.example.domain.marmitech.appPeople.model.Funcionario
 import com.example.domain.marmitech.appPeople.model.Turma
 import com.example.domain.marmitech.appPeople.usecase.*
 import com.example.domain.marmitech.base.Event
@@ -19,7 +20,8 @@ class LoginViewModel(
     private val insertFiscalSavedUseCase: InsertFiscalSavedUseCase,
     private val insertFiscalUseCase: InsertFiscalUseCase,
     private val getTurmaUseCase: GetTurmaUseCase,
-    private val removeAllFiscalSavedUseCase: RemoveAllFiscalSavedUseCase
+    private val removeAllFiscalSavedUseCase: RemoveAllFiscalSavedUseCase,
+    private val insertFuncionarioUseCase: InsertFuncionarioUseCase
 ) : BaseViewModel(scheduler) {
 
     private val _error = MutableLiveData<Event.Error?>()
@@ -53,6 +55,10 @@ class LoginViewModel(
     private val _insertFiscal = MutableLiveData<Boolean>()
     val insertFiscal: LiveData<Boolean>
         get() = _insertFiscal
+
+    private val _insertFuncionario = MutableLiveData<Boolean>()
+    val insertFuncionario: LiveData<Boolean>
+        get() = _insertFuncionario
 
     private val _deleteAllFiscalSaved = MutableLiveData<Boolean>()
     val deleteAllFiscalSaved: LiveData<Boolean>
@@ -151,6 +157,22 @@ class LoginViewModel(
                 when (event) {
                     is Event.Data<Boolean> -> {
                         _insertFiscal.value = true
+                    }
+                    is Event.Error -> {
+                        _error.value = event
+                    }
+                    else -> Unit
+                }
+            }.addTo(disposables)
+    }
+
+    fun insertFuncionario(funcionario: Funcionario) {
+        insertFuncionarioUseCase.execute(funcionario).subscribeOn(scheduler.backgroundThread())
+            .observeOn(scheduler.mainThread())
+            .subscribe { event ->
+                when (event) {
+                    is Event.Data<Boolean> -> {
+                        _insertFuncionario.value = true
                     }
                     is Event.Error -> {
                         _error.value = event
