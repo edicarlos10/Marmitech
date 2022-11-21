@@ -8,22 +8,72 @@
     tools:context=".funcionario.activity.FuncionarioActivity">
 
     <TextView
-        android:id="@+id/textview_first"
+        android:id="@+id/tvTurma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
         android:text="@string/hello_first_fragment"
-        app:layout_constraintBottom_toTopOf="@id/button_first"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvAcceptMarmita"
+        app:layout_constraintStart_toStartOf="@+id/tvAcceptMarmita"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_first"
+    <TextView
+        android:id="@+id/tvTurmaNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/next"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="8dp"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTurma"
+        app:layout_constraintStart_toEndOf="@+id/tvTurma"
+        app:layout_constraintTop_toTopOf="@+id/tvTurma"
+        tools:text="5" />
+
+    <TextView
+        android:id="@+id/tvAcceptMarmita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="48dp"
+        android:text="Aceitou Marmita ?"
+        android:textSize="20dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_first" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTurma" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="32dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tvAcceptMarmita"
+        app:layout_constraintStart_toStartOf="@+id/tvAcceptMarmita"
+        app:layout_constraintTop_toBottomOf="@+id/tvAcceptMarmita"
+        tools:text="Jonotan da Silva Pereira Santiago" />
+
+    <Button
+        android:id="@+id/btYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/bt_yes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btNot" />
+
+    <Button
+        android:id="@+id/btNot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/bt_not"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btYes"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

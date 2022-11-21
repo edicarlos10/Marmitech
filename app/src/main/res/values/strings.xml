@@ -5,8 +5,8 @@
     <string name="tv_required">Campo obrigatório</string>
     <string name="title_activity_funcionario">FuncionarioActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="bt_yes">Sim</string>
+    <string name="bt_not">Não</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_first_fragment">Turma:</string>
 </resources>
