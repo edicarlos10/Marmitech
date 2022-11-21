@@ -8,8 +8,6 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 interface ILoginRepository {
-   // fun getAllFuncionario(turma: Long): Single<List<Funcionario>>
-    //fun getFuncionario(matricula: Long, turma: Long): Single<List<Funcionario>>
     fun getFiscal(matricula: Long, turma: Long, senha: String): Single<List<Fiscal>>
     fun getAllTurmas(): Single<List<Turma>>
     fun getFiscalSaved(matricula: Long, turma: Long): Single<FiscalSaved>
