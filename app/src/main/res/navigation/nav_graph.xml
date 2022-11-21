@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FuncionarioFragment"
-        android:name="com.example.marmitech.funcionario.fragment.FuncionarioFragment"
+        android:name="com.example.marmitech.apontamento.fragment.FuncionarioFragment"
         tools:layout="@layout/fragment_funcionario">
 
     </fragment>

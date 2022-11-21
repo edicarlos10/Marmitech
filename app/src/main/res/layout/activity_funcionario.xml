@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/clFuncionarioActi"
-    tools:context=".funcionario.activity.FuncionarioActivity">
+    tools:context=".apontamento.activity.FuncionarioActivity">
 
     <include layout="@layout/content_funcionario" />
 
