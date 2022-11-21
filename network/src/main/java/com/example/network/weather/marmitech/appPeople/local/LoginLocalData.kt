@@ -17,23 +17,6 @@ import io.reactivex.Single
 class LoginLocalData(
     private val appDatabase: AppDatabase
 ) : ILoginLocalData {
-  //  override fun getAllFuncionario(turma: Long?): Single<List<Funcionario>> {
-    //    return Single.create {
-      //      appDatabase.funcionarioDao().getAllFuncionario(turma ?: 0)
-        //        ?.let { funcionario ->
-          //          it.onSuccess(funcionario.map{it.toFuncionario()})
-            //    } ?: it.onError(ThrowableBase(Error.GENERIC_ERROR))
-        //}
-    //}
-
-    //override fun getFuncionario(matricula: Long?, turma: Long?): Single<List<Funcionario>> {
-      //  return Single.create {
-        //    appDatabase.funcionarioDao().getFuncionario(matricula ?: 0, turma ?: 0)
-          //      ?.let { funcionario ->
-            //        it.onSuccess(funcionario.map{it.toFuncionario()})
-              //  } ?: it.onError(ThrowableBase(Error.GENERIC_ERROR))
-        //}
-    //}
 
     override fun getFiscal(matricula: Long?, turma: Long?, senha: String?): Single<List<Fiscal>> {
         return Single.create {
