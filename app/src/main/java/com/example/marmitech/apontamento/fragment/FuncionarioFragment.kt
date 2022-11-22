@@ -32,16 +32,13 @@ class FuncionarioFragment : Fragment() {
     private var turmaSelected: String? = null
     private var index = 0
 
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstance: Bundle?) {
         super.onCreate(savedInstance)
 
         apontamentoViewModel.loading.observe(this) { onLoading(it) }
         apontamentoViewModel.error.observe(this) { onError(it) }
-
-        val sharedPref =
-            activity?.getSharedPreferences("turma_selected", Context.MODE_PRIVATE) ?: return
-        turmaSelected = sharedPref.getInt("turma_selected", 0).toString()
-
         apontamentoViewModel.allFuncionario.observe(this) { listFuncionario ->
             sucessGetFuncionarios(
                 listFuncionario
@@ -53,9 +50,6 @@ class FuncionarioFragment : Fragment() {
             )
         }
     }
-
-    private val binding get() = _binding!!
-
 
     private fun sucessInsertApontamento(apontamento: Boolean?) {
         apontamento?.let {
@@ -94,6 +88,10 @@ class FuncionarioFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sharedPref =
+            activity?.getSharedPreferences("turma_selected", Context.MODE_PRIVATE) ?: return
+        turmaSelected = sharedPref.getInt("turma_selected", 0).toString()
 
         turmaSelected?.let {
             binding.tvTurmaNumber.text = it

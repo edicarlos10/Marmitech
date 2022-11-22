@@ -4,14 +4,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.marmitech.apontamento.fragment.FuncionarioFragment
 import com.example.marmitech.databinding.ActivityFuncionarioBinding
+import com.example.marmitech.extension.viewBinding
 
 class FuncionarioActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityFuncionarioBinding
+    private val binding by viewBinding(ActivityFuncionarioBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        binding = ActivityFuncionarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val funcionarioFragment = FuncionarioFragment.newInstance()
