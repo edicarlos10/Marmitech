@@ -9,7 +9,6 @@ import com.example.domain.marmitech.base.ThrowableBase
 import com.example.network.weather.marmitech.appPeople.local.ILoginLocalData
 import com.example.network.weather.marmitech.database.AppDatabase
 import io.reactivex.Completable
-import io.reactivex.Single
 
 class LoginRepository(
     private val localData: ILoginLocalData,

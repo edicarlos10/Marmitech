@@ -1,7 +1,6 @@
 package com.example.domain.marmitech.appPeople.usecase
 
 import com.example.domain.marmitech.appPeople.ILoginRepository
-import com.example.domain.marmitech.appPeople.model.Fiscal
 import com.example.domain.marmitech.appPeople.model.Funcionario
 import com.example.domain.marmitech.base.Event
 import io.reactivex.Observable

@@ -3,7 +3,6 @@ package com.example.network.weather.marmitech.appPeople.local.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.domain.marmitech.appPeople.model.Fiscal
 import com.example.domain.marmitech.appPeople.model.Funcionario
 import java.io.Serializable
 
