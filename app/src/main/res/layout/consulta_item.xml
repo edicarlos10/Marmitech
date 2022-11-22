@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/border_gray"
+    android:padding="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvDescMatricula"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Matricula:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMatricula"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDescMatricula"
+        app:layout_constraintStart_toEndOf="@+id/tvDescMatricula"
+        app:layout_constraintTop_toTopOf="@+id/tvDescMatricula"
+        tools:text="1231231231231" />
+
+    <TextView
+        android:id="@+id/tvDescTurma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Turma:"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescMatricula" />
+
+    <TextView
+        android:id="@+id/tvTuma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDescTurma"
+        app:layout_constraintStart_toEndOf="@+id/tvDescTurma"
+        app:layout_constraintTop_toTopOf="@+id/tvDescTurma"
+        tools:text="2" />
+
+    <TextView
+        android:id="@+id/tvDescData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data Apontamento:"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescTurma" />
+
+    <TextView
+        android:id="@+id/tvData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDescData"
+        app:layout_constraintStart_toEndOf="@+id/tvDescData"
+        app:layout_constraintTop_toTopOf="@+id/tvDescData"
+        tools:text="22/11/2022 14:41" />
+
+    <TextView
+        android:id="@+id/tvDescPegouMarmita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pegou Marmita?:"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescData" />
+
+    <TextView
+        android:id="@+id/tvPegouMarmita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDescPegouMarmita"
+        app:layout_constraintStart_toEndOf="@+id/tvDescPegouMarmita"
+        app:layout_constraintTop_toTopOf="@+id/tvDescPegouMarmita"
+        tools:text="Sim" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
