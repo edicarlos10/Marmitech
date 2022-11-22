@@ -58,6 +58,7 @@ class FuncionarioFragment : Fragment() {
                     binding.tvName.text = listOfFuncionario[index].nome
                 } else {
                     activity?.showDialog("Apontamentos finalizados!", "Atenção", true)
+                    binding.clSecond.visibility = View.GONE
                 }
             }
         }
@@ -72,6 +73,9 @@ class FuncionarioFragment : Fragment() {
             }
             listOfFuncionario = list
             binding.tvName.text = listOfFuncionario[index].nome
+        } else {
+            activity?.showDialog("Apontamentos para Turma $turmaSelected já realizado!", "Atenção", true)
+            binding.clSecond.visibility = View.GONE
         }
     }
 
