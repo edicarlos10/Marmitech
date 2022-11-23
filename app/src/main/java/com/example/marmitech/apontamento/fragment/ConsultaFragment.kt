@@ -1,9 +1,13 @@
 package com.example.marmitech.apontamento.fragment
 
+import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.marmitech.appPeople.model.Apontamento
@@ -11,6 +15,8 @@ import com.example.domain.marmitech.base.Event
 import com.example.marmitech.apontamento.ApontamentoViewModel
 import com.example.marmitech.apontamento.adapter.ApontamentoAdapter
 import com.example.marmitech.databinding.FragmentConsultaBinding
+import com.example.marmitech.extension.OnItemClickListener
+import com.example.marmitech.extension.addOnItemClickListener
 import com.example.marmitech.extension.showDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -49,6 +55,31 @@ class ConsultaFragment : Fragment() {
 
             val adapter = ApontamentoAdapter(it)
             binding.rvApontamento.adapter = adapter
+            binding.rvApontamento.addOnItemClickListener(object : OnItemClickListener{
+                override fun onItemClicked(position: Int, view: View) {
+
+                    var alertDialog: AlertDialog? = null
+                    try {
+                        val builder = AlertDialog.Builder(requireContext())
+                            builder.setTitle("Editando")
+                        builder.setMessage("Você quer alterar a entrega para a matricula?: "+ adapter.list[position].matricula)
+                            .setPositiveButton("Sim") { _, _ ->
+
+                            }
+                            .setNegativeButton("Não"){_, _ ->
+
+                            }
+
+                        alertDialog = builder.create()
+                        alertDialog.show()
+                    } catch (e: Exception) {
+                        Toast.makeText(requireContext(), "Não foi possível, tente novamente", Toast.LENGTH_LONG).show()
+                    }
+
+                    alertDialog?.getButton(DialogInterface.BUTTON_POSITIVE)?.setTextColor(Color.BLUE)
+                    alertDialog?.getButton(DialogInterface.BUTTON_NEGATIVE)?.setTextColor(Color.BLUE)
+                }
+            })
         }
     }
 
