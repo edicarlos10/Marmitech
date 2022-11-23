@@ -45,4 +45,11 @@ class ApontamentoLocalData(
             it.onComplete()
         }
     }
+
+    override fun updateApontamento(apontamento: Apontamento): Completable {
+        return Completable.create {
+            appDatabase.apontamentoDao().updateApontamento(ApontamentoEntity.fromApontamento(apontamento))
+            it.onComplete()
+        }
+    }
 }

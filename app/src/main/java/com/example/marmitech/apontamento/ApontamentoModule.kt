@@ -1,10 +1,7 @@
 package com.example.marmitech.apontamento
 
 import com.example.domain.marmitech.appPeople.IApontamentoRepository
-import com.example.domain.marmitech.appPeople.usecase.GetAllApontamentoCase
-import com.example.domain.marmitech.appPeople.usecase.GetAllFuncionariosUseCase
-import com.example.domain.marmitech.appPeople.usecase.GetFuncionarioUseCase
-import com.example.domain.marmitech.appPeople.usecase.InsertApontamentoUseCase
+import com.example.domain.marmitech.appPeople.usecase.*
 import com.example.network.weather.marmitech.appPeople.ApontamentoRepository
 import com.example.network.weather.marmitech.appPeople.local.ApontamentoLocalData
 import com.example.network.weather.marmitech.appPeople.local.IApontamentoLocalData
@@ -18,10 +15,12 @@ val funcionarioModule = module {
             getFuncionarioUseCase = get(),
             getAllFuncionariosUseCase = get(),
             getAllApontamentoUseCase = get(),
-            insertApontamentoUseCase = get()
+            insertApontamentoUseCase = get(),
+            updateApontamentoUseCase = get()
         )
     }
 
+    factory { UpdateApontamentoUseCase(repository = get()) }
     factory { GetFuncionarioUseCase(repository = get()) }
     factory { GetAllFuncionariosUseCase(repository = get()) }
     factory { InsertApontamentoUseCase(repository = get()) }

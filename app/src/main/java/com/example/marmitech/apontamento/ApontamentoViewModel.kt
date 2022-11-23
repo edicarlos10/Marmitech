@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.domain.marmitech.appPeople.model.Apontamento
 import com.example.domain.marmitech.appPeople.model.Funcionario
-import com.example.domain.marmitech.appPeople.usecase.GetAllApontamentoCase
-import com.example.domain.marmitech.appPeople.usecase.GetAllFuncionariosUseCase
-import com.example.domain.marmitech.appPeople.usecase.GetFuncionarioUseCase
-import com.example.domain.marmitech.appPeople.usecase.InsertApontamentoUseCase
+import com.example.domain.marmitech.appPeople.usecase.*
 import com.example.domain.marmitech.base.Event
 import com.example.domain.marmitech.util.ISchedulerProvider
 import com.example.marmitech.base.BaseViewModel
@@ -18,7 +15,8 @@ class ApontamentoViewModel(
     private val getFuncionarioUseCase: GetFuncionarioUseCase,
     private val getAllFuncionariosUseCase: GetAllFuncionariosUseCase,
     private val getAllApontamentoUseCase: GetAllApontamentoCase,
-    private val insertApontamentoUseCase: InsertApontamentoUseCase
+    private val insertApontamentoUseCase: InsertApontamentoUseCase,
+    private val updateApontamentoUseCase: UpdateApontamentoUseCase
 ) : BaseViewModel(scheduler) {
 
     private val _error = MutableLiveData<Event.Error?>()
@@ -44,6 +42,10 @@ class ApontamentoViewModel(
     private val _insertApontamento = MutableLiveData<Boolean>()
     val insertApontamento: LiveData<Boolean>
         get() = _insertApontamento
+
+    private val _updateApontamento = MutableLiveData<Boolean>()
+    val updateApontamento: LiveData<Boolean>
+        get() = _updateApontamento
 
 
     fun getFuncionario(matricula: Long, turma: Long) {
@@ -108,6 +110,23 @@ class ApontamentoViewModel(
                 when (event) {
                     is Event.Data<Boolean> -> {
                         _insertApontamento.value = true
+                    }
+                    is Event.Error -> {
+                        _error.value = event
+                    }
+                    else -> Unit
+                }
+            }.addTo(disposables)
+    }
+
+    fun updateApontamento(apontamento: Apontamento) {
+        updateApontamentoUseCase.execute(apontamento).subscribeOn(scheduler.backgroundThread())
+            .observeOn(scheduler.mainThread())
+            .subscribe { event ->
+                _loading.value = event.isLoading()
+                when (event) {
+                    is Event.Data<Boolean> -> {
+                        _updateApontamento.value = true
                     }
                     is Event.Error -> {
                         _error.value = event

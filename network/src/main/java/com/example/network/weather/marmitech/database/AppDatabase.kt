@@ -6,7 +6,7 @@ import com.example.network.weather.marmitech.appPeople.local.database.*
 
 @Database(
     entities = [FiscalEntity::class, TurmaEntity::class, FiscalSavedEntity::class, FuncionarioEntity::class, ApontamentoEntity::class],
-    version = 7,
+    version = 8,
     exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun fiscalDao(): FiscalDao

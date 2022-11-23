@@ -10,4 +10,5 @@ interface IApontamentoLocalData {
     fun getFuncionario(matricula: Long?, turma: Long?): Single<List<Funcionario>>
     fun getAllApontamento(): Single<List<Apontamento>>
     fun insertApontamento(apontamento: Apontamento): Completable
+    fun updateApontamento(apontamento: Apontamento): Completable
 }

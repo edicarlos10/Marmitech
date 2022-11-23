@@ -9,4 +9,7 @@ interface ApontamentoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg apontamento: ApontamentoEntity)
+
+    @Update
+    fun updateApontamento(vararg apontamento: ApontamentoEntity)
 }

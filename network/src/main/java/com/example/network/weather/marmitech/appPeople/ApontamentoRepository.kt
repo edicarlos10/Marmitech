@@ -27,4 +27,11 @@ class ApontamentoRepository(
                 ThrowableBase.parseError(it).toCompletableError()
             }
     }
+
+    override fun updateApontamento(apontamento: Apontamento): Completable {
+        return localData.updateApontamento(apontamento)
+            .onErrorResumeNext {
+                ThrowableBase.parseError(it).toCompletableError()
+            }
+    }
 }
