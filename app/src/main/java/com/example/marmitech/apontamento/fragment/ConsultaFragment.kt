@@ -19,6 +19,8 @@ import com.example.marmitech.extension.OnItemClickListener
 import com.example.marmitech.extension.addOnItemClickListener
 import com.example.marmitech.extension.showDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ConsultaFragment : Fragment() {
 
@@ -46,6 +48,15 @@ class ConsultaFragment : Fragment() {
                 listApontamento
             )
         }
+        apontamentoViewModel.updateApontamento.observe(this){apontamento -> sucessEdit(apontamento)}
+    }
+
+    private fun sucessEdit(edited: Boolean?) {
+        edited?.let {
+            if(it){
+                apontamentoViewModel.getAllApontamento()
+            }
+        }
     }
 
     private fun sucessGetApontamentos(listApontamento: List<Apontamento>?) {
@@ -55,32 +66,57 @@ class ConsultaFragment : Fragment() {
 
             val adapter = ApontamentoAdapter(it)
             binding.rvApontamento.adapter = adapter
-            binding.rvApontamento.addOnItemClickListener(object : OnItemClickListener{
+            binding.rvApontamento.addOnItemClickListener(object : OnItemClickListener {
                 override fun onItemClicked(position: Int, view: View) {
+                    alertToEdit(adapter, position)
 
-                    var alertDialog: AlertDialog? = null
-                    try {
-                        val builder = AlertDialog.Builder(requireContext())
-                            builder.setTitle("Editando")
-                        builder.setMessage("Você quer alterar a entrega para a matricula?: "+ adapter.list[position].matricula)
-                            .setPositiveButton("Sim") { _, _ ->
-
-                            }
-                            .setNegativeButton("Não"){_, _ ->
-
-                            }
-
-                        alertDialog = builder.create()
-                        alertDialog.show()
-                    } catch (e: Exception) {
-                        Toast.makeText(requireContext(), "Não foi possível, tente novamente", Toast.LENGTH_LONG).show()
-                    }
-
-                    alertDialog?.getButton(DialogInterface.BUTTON_POSITIVE)?.setTextColor(Color.BLUE)
-                    alertDialog?.getButton(DialogInterface.BUTTON_NEGATIVE)?.setTextColor(Color.BLUE)
                 }
             })
         }
+    }
+
+    private fun alertToEdit(
+        adapter: ApontamentoAdapter,
+        position: Int
+    ) {
+        val instance = Calendar.getInstance()
+        instance.add(Calendar.DATE, 1)
+
+        val date = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(instance.time)
+
+        var alertDialog: AlertDialog? = null
+        try {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Editando")
+            builder.setMessage("Você quer alterar a entrega para a matricula?: " + adapter.list[position].matricula)
+                .setPositiveButton("Sim") { _, _ ->
+                    apontamentoViewModel.updateApontamento(
+                        Apontamento(
+                            adapter.list[position].matricula,
+                            adapter.list[position].turma,
+                            date,
+                            adapter.list[position].pegou != true
+                        )
+                    )
+                }
+                .setNegativeButton("Não") { _, _ ->
+
+                }
+
+            alertDialog = builder.create()
+            alertDialog.show()
+        } catch (e: Exception) {
+            Toast.makeText(
+                requireContext(),
+                "Não foi possível, tente novamente",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+
+        alertDialog?.getButton(DialogInterface.BUTTON_POSITIVE)
+            ?.setTextColor(Color.BLUE)
+        alertDialog?.getButton(DialogInterface.BUTTON_NEGATIVE)
+            ?.setTextColor(Color.BLUE)
     }
 
     override fun onCreateView(
