@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.marmitech.appPeople.model.Apontamento
 import com.example.marmitech.databinding.ConsultaItemBinding
 
-class ApontamentoAdapter (val list: List<Apontamento>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ApontamentoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    var list: MutableList<Apontamento> = mutableListOf()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ConsultaItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ApontamentoViewHolder(binding)

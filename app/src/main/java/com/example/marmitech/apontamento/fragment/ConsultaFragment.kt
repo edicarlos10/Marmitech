@@ -37,6 +37,7 @@ class ConsultaFragment : Fragment() {
     private var _binding: FragmentConsultaBinding? = null
     private val binding get() = _binding!!
     private val apontamentoViewModel: ApontamentoViewModel by viewModel()
+    val adapter: ApontamentoAdapter by lazy { ApontamentoAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,12 +65,11 @@ class ConsultaFragment : Fragment() {
             binding.rvApontamento.layoutManager = LinearLayoutManager(activity)
             binding.rvApontamento.setHasFixedSize(true)
 
-            val adapter = ApontamentoAdapter(it)
+            adapter.list = it.toMutableList()
             binding.rvApontamento.adapter = adapter
             binding.rvApontamento.addOnItemClickListener(object : OnItemClickListener {
                 override fun onItemClicked(position: Int, view: View) {
                     alertToEdit(adapter, position)
-
                 }
             })
         }
@@ -99,9 +99,7 @@ class ConsultaFragment : Fragment() {
                         )
                     )
                 }
-                .setNegativeButton("Não") { _, _ ->
-
-                }
+                .setNegativeButton("Não") { _, _ ->}
 
             alertDialog = builder.create()
             alertDialog.show()
