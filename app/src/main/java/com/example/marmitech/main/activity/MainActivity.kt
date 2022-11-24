@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         setListeners()
     }
 
-
     private fun sucessGetApontamentos(listApontamento: List<Apontamento>?) {
         listApontamento?.let {
             writeFile(toJson(it))

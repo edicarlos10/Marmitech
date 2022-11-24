@@ -1,5 +1,6 @@
 package com.example.marmitech.extension
 
+import android.app.Activity
 import android.content.Context
 import android.widget.Toast
 import com.example.domain.marmitech.appPeople.model.Apontamento
@@ -29,7 +30,7 @@ fun Context.toDataList(): Marmitech {
     return jacksonObjectMapper().readValue(readJson("JsonToMarmitech.json"))
 }
 
-fun Context.toJson(it: List<Apontamento>): String {
+fun toJson(it: List<Apontamento>): String {
     return try {
         ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(it)
     } catch (e: JsonGenerationException) {
@@ -41,7 +42,7 @@ fun Context.toJson(it: List<Apontamento>): String {
     }
 }
 
-fun Context.writeFile(json: String) {
+fun Activity.writeFile(json: String) {
     try {
         val file = File(
             this.filesDir,
@@ -51,6 +52,7 @@ fun Context.writeFile(json: String) {
         val bufferedWriter = BufferedWriter(fileWriter)
         bufferedWriter.write(json)
         bufferedWriter.close()
+        this.showDialog("Apontamentos integrados!", "Sucesso")
     } catch (e: Exception) {
         Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
     }
