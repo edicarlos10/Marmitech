@@ -32,6 +32,10 @@ Como foi um MVP, e **com deadline definida**, _precisa-se de melhorias visuais e
 
 A UI, foi pensada o mais simples possivel (**pensando no tipo de usuário**), pode ser _melhorada futuramente._
 
+O código também precisa de otimizações, como por exemplo **_remoção de codigo morto._**. Onde poderá ser feito futuramente.
+
+Também acrescento que, **futuramente**, poderá ser _finalizado a integração com os actions do GitHub._
+
 # Preview do APP rodando
 Abaixo, segue link da apresentação (**Video do app**) _feita para Banca do PA._
 
