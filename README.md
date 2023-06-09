@@ -30,7 +30,7 @@ Outros detalhes podem ser _conferidos nos arquivos do projeto._
 # Melhorias
 Como foi um MVP, e **com deadline definida**, _precisa-se de melhorias visuais e de fluxo_ porém está pronto para uso (**inclusive rodando em empresas**)
 
-A UI, foi pensada o mais simples possivel (**pensando no tipo de usuário**), pode ser _melhorada futuramente._
+A UI foi pensada o mais simples possivel (**pensando no tipo de usuário**), pode ser _melhorada futuramente._
 
 O código também precisa de otimizações, como por exemplo **_remoção de codigo morto._**. Onde poderá ser feito futuramente.
 
